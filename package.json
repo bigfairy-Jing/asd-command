@@ -1,23 +1,40 @@
 {
-  "name": "asd-command",
-  "version": "0.0.1",
-  "description": "a command for node",
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "nodeVersion": ">=8.9",
+  "description": "My webpack project",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "rm-dist": "rimraf dist/*",
-    "compile": "tsc",
-    "build": "npm-run-all rm-dist compile",
+    "build": "npm-run-all rm-dist && webpack --mode=production --node-env=production",
+    "link-all": "npm-run-all build  && link",
     "start": "node .",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
-    "lint-fix": "npm run lint -- --fix"
+    "lint-fix": "npm run lint -- --fix",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
   },
+  "bin": {
+    "asd": "bin/index.js"
+  },
+  "private": true,
   "author": "HZ",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@types/cli-spinner": "^0.2.1",
+    "@types/lodash": "^4.14.181",
     "@types/node": "^17.0.23",
+    "@types/semver": "^7.3.9",
+    "@types/urlencode": "^1.1.2",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
+    "@webpack-cli/generators": "^2.4.2",
+    "babel-loader": "^8.2.5",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^16.0.3",
@@ -25,12 +42,29 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.2.0",
+    "mddir": "^1.1.1",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.1",
+    "semver": "^7.3.5",
+    "ts-loader": "^9.2.8",
     "ts-node-dev": "^1.1.8",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "urlencode": "^1.1.0",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "chalk": "^5.0.1",
+    "cheerio": "^1.0.0-rc.10",
+    "cli-spinner": "^0.2.10",
+    "commander": "^9.1.0",
+    "core-js": "^3.22.1",
+    "got": "^12.0.3",
+    "is-chinese": "^1.4.6",
+    "lodash": "^4.17.21",
+    "no-case": "^3.0.4"
+  }
 }
