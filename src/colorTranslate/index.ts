@@ -1,13 +1,13 @@
 import chalk from 'chalk';
 import lang from '../../lang';
-import { splitTrim } from '../../lib/utils';
+import { splitTrim, consoleErr } from '../../lib/utils';
 import { hexReg, rgbaReg } from './config';
 
 type ColorType = 'rgba' | 'hex' | '';
 
 const validColor = (colorStr: string): ColorType => {
   colorStr = splitTrim(colorStr).join('');
-
+  console.log(colorStr)
   if (rgbaReg.test(colorStr)) {
     return 'rgba';
   }
@@ -21,7 +21,7 @@ export default (colorStr: string) => {
   const colorType = validColor(colorStr);
 
   if (!colorType) {
-    console.error(lang.colorInputErr as string);
+    consoleErr(lang.colorInputErr as string);
   }
 
   if (colorType === 'rgba') {

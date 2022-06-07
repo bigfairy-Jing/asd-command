@@ -3,46 +3,50 @@ import path from 'path';
 import mimeType from 'mime-types';
 import lang from '../../lang';
 import regs from '../../lib/reg';
-import { getBase64ImgType } from './config';
-import GotFetch from '../../lib/fetch';
+// import { getBase64ImgType } from './config';
+import { CMD } from '../../lib/commonType';
+import { consoleErr } from '../../lib/utils';
+import { copyToClipboard } from '../ultimateCopy/config';
 
 const imgToBase64 = (imgLink: string) => {
-  imgLink = process.argv[2];
   const stat = fs.lstatSync(imgLink);
   if (!stat.isFile() && regs.img.val.test(imgLink)) {
-    console.error(lang.showInputImgFile as string);
+    consoleErr(lang.showInputImgFile as string);
     return;
   }
+
+  if (stat.size > 1024 * 1024 * 100) {
+    consoleErr(lang.inputImgMaxSize as string);
+    return;
+  }
+
   const filePath = path.resolve(imgLink);
   const fileMimeType = mimeType.lookup(filePath);
   const fileData = fs.readFileSync(filePath);
   const base64Data = Buffer.from(fileData).toString('base64');
   const base64String = `data:${fileMimeType as string} ;base64,${base64Data}`;
-  console.log(base64String);
+  copyToClipboard(base64String, lang.imgTranslateBase64 as string);
 };
 
-const Base64ToImg = (base64Str: string) => {
-  base64Str = process.argv[2];
-  const baseStr = base64Str.replace(/^data:image\/\w+;base64,/, '');
-  const imgName = getBase64ImgType(base64Str);
-  fs.writeFileSync(`base${Date.now()}${imgName}`, baseStr, 'base64');
-};
+// const Base64ToImg = (base64Str: string) => {
+//   base64Str = process.argv[2];
+//   const baseStr = base64Str.replace(/^data:image\/\w+;base64,/, '');
+//   const imgName = getBase64ImgType(base64Str);
+//   fs.writeFileSync(`base${Date.now()}${imgName}`, baseStr, 'base64');
+// };
 
-const urlSave = async (url: string) => {
-  url = process.argv[2];
-  const { code, res } = (await GotFetch.get(url.replace(/\\/g, ''))) as {
-    code: number;
-    res: {
-      rawBody: NodeJS.ArrayBufferView;
-    };
-  };
-  if (code !== 0) {
-    console.error(lang.imgUrlError);
+export default (val: string, cmd: CMD) => {
+  const keys = Object.keys(cmd);
+  const { length } = keys;
+
+  if (length !== 1) {
+    console.error(lang.optionError);
     return;
   }
 
-  fs.writeFile(`img${Date.now()}.png`, res.rawBody, 'binary', err => {
-    if (err) console.log('图片保存失败');
-    else console.log('保存成功');
-  });
+  const type = keys[0];
+  // 图片转base64
+  if (type === 'imgtobase64') {
+    imgToBase64(val);
+  }
 };

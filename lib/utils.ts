@@ -6,9 +6,18 @@ import lang from '../lang';
 import Regs from './reg';
 import { name, nodeVersion } from '../package.json';
 import Decimal from 'decimal.js';
+import minimist from 'minimist';
 
 export const mul = (num: number, dep: number) => new Decimal(+num).mul(+dep).toNumber();
 export const div = (num: number, dep: number) => new Decimal(+num).div(+dep).toNumber();
+
+export const consoleErr = (str: string) => {
+  console.log(chalk.red(`\n 😔 ${str}`));
+};
+
+export const consoleSuccess = (str: string) => {
+  console.log(`🎉 ${str}`);
+};
 
 export enum PathTypeEnum {
   FILE = 'file',
@@ -28,6 +37,14 @@ export default {
   isObject(x: unknown): boolean {
     return _.isObject(x);
   },
+};
+
+export const verifyArgs = (name: string, len: number = 1) => {
+  consoleErr(JSON.stringify(minimist(process.argv.slice(2))._));
+  if (minimist(process.argv.slice(3))._.length > len) {
+    consoleErr((lang.getArgsErr as (...argv: (string | number)[]) => string)(name, len));
+    process.exit(9);
+  }
 };
 
 export const validNodeVersion = (): boolean => {

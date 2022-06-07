@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import lang from '../lang/index';
-import { validNodeVersion } from '../lib/utils';
+import { validNodeVersion, verifyArgs } from '../lib/utils';
+import { CMD } from '../lib/commonType';
 import { version, name as cliName } from '../package.json';
 
 // tool
 import translate from './translate';
 import weather, { weatherOpt } from './weather';
 import randomSelect from './randomSelect';
-import search, { CMD } from './search';
+import search, { CMD as SearchCMD } from './search';
 import openBrowser from './openBrowser';
 import creaetSome from './createSome';
 import colorTranslate from './colorTranslate';
 import imgTranslate from './imgTranslate';
 import createQrcode from './createQrcode';
+import imgLinkSave from './imgLinkSave';
+import imgCompress from './imgCompress';
 
 // @ 1检测NODE版本是否合格
 if (!validNodeVersion()) {
@@ -34,16 +37,38 @@ program
   .command('fy <word>')
   .description(lang.translate as string)
   .action((val: string) => {
+    verifyArgs('fy');
+    translate(val);
+  });
+
+program
+  .command('translate <word>')
+  .description(lang.translate as string)
+  .action((val: string) => {
+    verifyArgs('translate');
     translate(val);
   });
 
 // $2 天气
 program
   .command('tq [text]')
+  .description(lang.weather as string)
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
   .action((text: string, opt: weatherOpt) => {
+    verifyArgs('tq');
+    weather(text, opt);
+  });
+
+program
+  .command('weather [text]')
+  .description(lang.weather as string)
+  .option('-b --base', 'current weather')
+  .option('-a --all', 'Weather Forecast')
+  .option('-fc --findcode', 'find address code')
+  .action((text: string, opt: weatherOpt) => {
+    verifyArgs('weather');
     weather(text, opt);
   });
 
@@ -52,6 +77,7 @@ program
   .command('select <word>')
   .description(lang.selectRandom as string)
   .action((val: string) => {
+    verifyArgs('select');
     randomSelect(val);
   });
 
@@ -64,7 +90,8 @@ program
   .option('-g, --google', 'search by google')
   .option('-a, --all', 'search by all set')
   .description(lang.searchDesc as string)
-  .action((val: string, cmd: CMD) => {
+  .action((val: string, cmd: SearchCMD) => {
+    verifyArgs('search');
     search(val, cmd);
   });
 
@@ -73,6 +100,7 @@ program
   .command('open <link>')
   .description(lang.openBrowser as string)
   .action((link: string) => {
+    verifyArgs('open');
     openBrowser(link);
   });
 
@@ -86,7 +114,8 @@ program
   .option('-rp, --randomphone', 'random phone number')
   .option('-rh, --randomhue', 'random colour')
   .description(lang.createAny as string)
-  .action((val: string, cmd) => {
+  .action((val: string, cmd: CMD) => {
+    verifyArgs('cs');
     creaetSome(val, cmd);
   });
 
@@ -95,35 +124,46 @@ program
   .command('cc <color>')
   .description(lang.colorTranslate as string)
   .action((color: string) => {
+    verifyArgs('cc');
     colorTranslate(color);
   });
 
 // $7 图片转换 -> base64  base64 -> 图片  url -> base64
 program
-  .command('imgtl [optStr]')
+  .command('imgtl <imgStr>')
   .option('-ib, --imgtobase64', 'img to base64')
-  // .option('-bi, --base64toimg', 'base64 to img')
-  .option('-us, --urlsave', 'url save')
   .description(lang.imgTranslate as string)
-  .action((val: string, cmd) => {
-    // imgTranslate(val, cmd);
+  .action((val: string, cmd: CMD) => {
+    verifyArgs('imgtl');
+    imgTranslate(val, cmd);
   });
 
-// $8 图片压缩
+// $8 url 图片地址保存
 program
-  .command('imgcp [optStr]')
+  .command('imgsave <imgLink>')
+  .description(lang.imageSaveSuccess as string)
+  .action((val: string) => {
+    verifyArgs('imgsave');
+    imgLinkSave(val);
+  });
+
+// $9 图片压缩
+program
+  .command('imgcp <inPath> <outPath>')
   .option('-tin, --tinypng', 'compress by tinypng')
   .option('-images, --nodeimages', 'compress by npm node-images')
   .description(lang.imgCompress as string)
-  .action((val: string, cmd) => {
-    // imgCompress();
+  .action((pathStr: string, outPath: string,  cmd) => {
+    verifyArgs('imgcp', 2);
+    imgCompress(pathStr: string, outPath: string,  cmd);
   });
 
-// $9 链接转为二维码
+// $10 链接转为二维码
 program
   .command('qrcode <link>')
   .description(lang.linkToqrCodeTo as string)
   .action((link: string) => {
+    verifyArgs('qrcode');
     createQrcode(link);
   });
 

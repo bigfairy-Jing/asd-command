@@ -21,7 +21,10 @@ type MoneysLangData = {
 export const langData: LangdData = {
   cn: {
     vaildVersion(name: string, nodeVersion: string): string {
-      return `您当前的Node版本为${process.version}, 但是 ${name} 需要Node版本${nodeVersion}, 请升级您本机的node版本`;
+      return `您当前的Node版本为${process.version}, 但是 ${name} 需要Node版本${nodeVersion}, 请升级您系统的node版本`;
+    },
+    getArgsErr: (name, len) => {
+      return `当前命令${name}, 最多支持${len}个参数，请检查后重新输入命令！`;
     },
     successDL: `恭喜您！${name} V${version} 下载成功!`,
     // 翻译
@@ -31,7 +34,8 @@ export const langData: LangdData = {
     translateSuccess: '翻译成功!',
 
     // 天气
-    weather: '天气查询中......',
+    weather: '天气查询',
+    weathering: '天气查询中......',
     showNowWeather(
       city,
       weather,
@@ -77,7 +81,7 @@ export const langData: LangdData = {
     // create any
     createAny: '生成数字等',
     // options Error
-    optionError: 'option - 配置项有且仅能输入一个, 请输入-help查看',
+    optionError: 'option - 配置项仅能输入一个, 请输入-help查看',
     optionError2: 'option - 配置项输入有误, 请输入-help查看',
     // inputNeedNumber
     inputNeedNumber: '指令值需要为数字类型',
@@ -88,9 +92,19 @@ export const langData: LangdData = {
     // 颜色输入错误
     colorInputErr: '颜色输入错误, 请输入16进制颜色或者rgb(a)值',
     // 传入需要为img类型
-    showInputImgFile: '传入数值需要为img类型',
+    showInputImgFile: '传入值需要为img类型',
+    inputImgMaxSize: '图片转换为base64最大为10MB',
+    imageSaveSuccess: '图片保存成功',
+    imageSaveFail: '图片保存失败请检查传入链接',
+    imgTranslate: '图片转换',
+    imgTranslateBase64: '图片转换base64成功, 已复制到粘贴板',
     // 传入图片类型错误
     imgUrlError: '传入图片url有误',
+    imgSave: '图片链接保存本地',
+    linkToqrCodeTo: '链接保存为二维码',
+    imgCompress: '图片压缩',
+    imgFileIputErr: '文件传入类型错误,为非图片类型',
+    imgInputPathErr: '输入路径有误，非图片类型或包含图片文件夹',
     moneyFromCountryTips: '请选择要转换的货币从属国家 - 从',
     moneyToCountryTips: '请选择要转换到的货币从属国家 - 至',
     moneyFromCurrnecyTips: '请选择要转换的货币 - 从',
@@ -123,6 +137,14 @@ export const langData: LangdData = {
     translating: 'In translation......',
   },
 };
+
+// export const langFormat = {
+//   cn: {
+
+//   },
+//   en: {
+//   }
+// }
 
 export const moneysLangData: MoneysLangData = {
   cn: {

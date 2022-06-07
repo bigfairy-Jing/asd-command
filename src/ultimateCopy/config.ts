@@ -3,10 +3,11 @@
 // 具体复制问题参考https://github.com/xavi-/node-copy-paste/issues
 import ncp from 'copy-paste';
 import lang from '../../lang';
+import { consoleSuccess } from '../../lib/utils';
 
-export const copyToClipboard = (text: string) => {
+export const copyToClipboard = (text: string, successText: string = '') => {
   ncp.copy(text, () => {
-    console.log(lang.copySuccess);
+    consoleSuccess( successText || lang.copySuccess as string);
   });
 };
 

@@ -23,7 +23,7 @@ export default async (text: string | undefined, opt: weatherOpt) => {
 
   const cityCode = text || '440306';
 
-  spinner.log(lang.weather as string);
+  spinner.log(lang.weathering as string);
   const { code, res, error } = await GotFetch.get(`${getWeatherAPI(type, cityCode)}`, true);
   // @ts-ignore
   if (code !== 0 || (res.status as number) !== '1') {

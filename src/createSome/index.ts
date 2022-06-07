@@ -9,7 +9,8 @@ import {
   getRandomHue,
 } from './format';
 
-export default (val: string, cmd) => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export default (val: string, cmd: {}) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const keys = Object.keys(cmd);
   const { length } = keys;
