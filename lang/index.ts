@@ -105,6 +105,10 @@ export const langData: LangdData = {
     imgCompress: '图片压缩',
     imgFileIputErr: '文件传入类型错误,为非图片类型',
     imgInputPathErr: '输入路径有误，非图片类型或包含图片文件夹',
+    imgCompressSuccess: '图片压缩成功',
+    getShowCompressRe: (successNum, errNum) => {
+      return `图片压缩完毕! 其压缩成功${successNum}个, 压缩失败${errNum}个 `;
+    },
     moneyFromCountryTips: '请选择要转换的货币从属国家 - 从',
     moneyToCountryTips: '请选择要转换到的货币从属国家 - 至',
     moneyFromCurrnecyTips: '请选择要转换的货币 - 从',

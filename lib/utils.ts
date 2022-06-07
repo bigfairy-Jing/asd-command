@@ -63,7 +63,6 @@ export const isPositiveNumber = (num: string | number) => /(^[1-9]\d*$)/.test(`$
 
 export const isPathType = (str: string): PathType => {
   const stat = fs.lstatSync(str);
-  console.log(str);
   if (stat.isDirectory()) return 'directory';
   if (stat.isFile()) return 'file';
   return 'unknown';
@@ -91,3 +90,5 @@ export const sizeTranslte = (
       break;
   }
 };
+
+export const getRootDir = () => fs.realpathSync(process.cwd());

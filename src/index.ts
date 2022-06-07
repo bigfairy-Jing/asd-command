@@ -17,6 +17,7 @@ import imgTranslate from './imgTranslate';
 import createQrcode from './createQrcode';
 import imgLinkSave from './imgLinkSave';
 import imgCompress from './imgCompress';
+import imgInfo from './imgInfo';
 
 // @ 1检测NODE版本是否合格
 if (!validNodeVersion()) {
@@ -153,9 +154,20 @@ program
   .option('-tin, --tinypng', 'compress by tinypng')
   .option('-images, --nodeimages', 'compress by npm node-images')
   .description(lang.imgCompress as string)
-  .action((pathStr: string, outPath: string,  cmd) => {
+  .action((pathStr: string, outPath: string, cmd: CMD) => {
     verifyArgs('imgcp', 2);
-    imgCompress(pathStr: string, outPath: string,  cmd);
+    imgCompress(pathStr, outPath, cmd);
+  });
+
+// $10 获取图片信息 单个文件 文件夹
+program
+  .command('imginfo <imgPath>')
+  .option('-b, --base', 'Get file picture information')
+  .option('-l, --link', 'Get linked picture information')
+  .description(lang.showImgInfo as string)
+  .action((imgPath: string) => {
+    verifyArgs('imginfo');
+    imgInfo(imgPath);
   });
 
 // $10 链接转为二维码
