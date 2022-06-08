@@ -2,7 +2,7 @@ import semver, { Range } from 'semver';
 import chalk from 'chalk';
 import _ from 'lodash';
 import fs from 'fs';
-import lang, { langFormatData } from '../lang';
+import { langFormatData } from '../lang';
 import Regs from './reg';
 import { name, nodeVersion } from '../package.json';
 import Decimal from 'decimal.js';
@@ -16,8 +16,7 @@ export const consoleErr = (str: string) => {
 };
 
 export const consoleSuccess = (str: string) => {
-  console.log(`🎉 
-    ${str}`);
+  console.log(`🎉  ${str}`);
 };
 
 export enum PathTypeEnum {

@@ -63,14 +63,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var commander_1 = require("commander");
-var index_1 = __importDefault(require("../lang/index"));
 var utils_1 = require("../lib/utils");
-var package_json_1 = require("../package.json");
 // @ 1检测NODE版本是否合格
 if (!(0, utils_1.validNodeVersion)()) {
     process.exit(1);
 }
+var commander_1 = require("commander");
+var index_1 = __importDefault(require("../lang/index"));
+var package_json_1 = require("../package.json");
 // @3 命令行书写
 var program = new commander_1.Command();
 program.version("".concat(package_json_1.name, " ").concat(package_json_1.version)).usage('<command> [options]');

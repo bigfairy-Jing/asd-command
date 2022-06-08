@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.languageType = exports.moneysLangData = exports.langFormatData = exports.langFormat = exports.langData = exports.langList = void 0;
+exports.languageType = exports.moneysLangData = exports.langFormatData = exports.langFormat = exports.langData = exports.langList = exports.LangType = void 0;
 var package_json_1 = require("../package.json");
 var package_json_2 = __importDefault(require("../package.json"));
 var _packgeJson = JSON.parse(JSON.stringify(package_json_2.default));
@@ -12,7 +12,7 @@ var LangType;
 (function (LangType) {
     LangType["CN"] = "cn";
     LangType["EN"] = "en";
-})(LangType || (LangType = {}));
+})(LangType = exports.LangType || (exports.LangType = {}));
 exports.langList = [{ name: '简体中文' }, { name: 'English' }];
 exports.langData = {
     cn: {
@@ -75,6 +75,8 @@ exports.langData = {
         tomorrow: '明天',
         afterTomorrow: '后天',
         threeDaysFromNow: '大后天',
+        languageChangeSuccess: '切换语言成功',
+        showSelectLanguage: '您当前选择的语言是简体中文',
     },
     en: {
         languageChange: 'Language switching',
@@ -135,6 +137,8 @@ exports.langData = {
         tomorrow: 'tomorrow',
         afterTomorrow: 'the day after tomorrow',
         threeDaysFromNow: 'three days from now',
+        languageChangeSuccess: 'Switching language succeeded',
+        showSelectLanguage: 'The language you currently select is English',
     },
 };
 exports.langFormat = {
@@ -163,10 +167,6 @@ exports.langFormat = {
         getShowImgInfo: function (imgSize, width, height, type) {
             return "\n        \u56FE\u7247\u5927\u5C0F: ".concat(imgSize, "\n        \u56FE\u7247\u5BBD: ").concat(width, "\u50CF\u7D20\n        \u56FE\u7247\u9AD8: ").concat(height, "\u50CF\u7D20\n        \u56FE\u7247\u7C7B\u578B: ").concat(type, "\n      ");
         },
-        getSelectLanguage: function (lang) {
-            console.log('lang--------->', lang);
-            return lang === 'cn' && '您当前选择的语言是简体中文';
-        },
     },
     en: {
         vaildVersion: function (name, nodeVersion) {
@@ -192,9 +192,6 @@ exports.langFormat = {
         },
         getShowImgInfo: function (imgSize, width, height, type) {
             return "\n        Picture size: ".concat(imgSize, "\n        Picture width: ").concat(width, "pixel\n        Picture height: ").concat(height, "pixel\n        Picture type: ").concat(type, "\n      ");
-        },
-        getSelectLanguage: function (lang) {
-            return lang === 'en' && 'The language you currently select is English';
         },
     },
 };

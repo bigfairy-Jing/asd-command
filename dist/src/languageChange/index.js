@@ -68,13 +68,13 @@ var fs_1 = __importDefault(require("fs"));
 var lang_1 = __importStar(require("../../lang"));
 var utils_1 = require("../../lib/utils");
 var _packgeJson = JSON.parse(JSON.stringify(package_json_1.default));
-var language = (_packgeJson === null || _packgeJson === void 0 ? void 0 : _packgeJson.language) || 'cn';
 var writePackageLanguage = function (language) {
     _packgeJson.language = language;
     var str = JSON.stringify(_packgeJson);
     try {
         fs_1.default.writeFileSync('./dist/package.json', str);
-        console.log();
+        (0, utils_1.consoleSuccess)(lang_1.langData[language].languageChangeSuccess);
+        (0, utils_1.consoleSuccess)(lang_1.langData[language].showSelectLanguage);
     }
     catch (error) {
         console.log(error);
@@ -111,7 +111,7 @@ exports.default = (function (cmd) {
     var keys = Object.keys(cmd);
     var length = keys.length;
     if (length === 0) {
-        (0, utils_1.consoleSuccess)(lang_1.langFormatData.getSelectLanguage(language));
+        (0, utils_1.consoleSuccess)(lang_1.default.showSelectLanguage);
         return;
     }
     if (length !== 1) {

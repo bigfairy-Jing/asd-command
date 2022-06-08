@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
-import lang from '../lang/index';
 import { validNodeVersion, verifyArgs } from '../lib/utils';
-import { CMD } from '../lib/commonType';
-import { version, name as cliName } from '../package.json';
-
 // @ 1检测NODE版本是否合格
 if (!validNodeVersion()) {
   process.exit(1);
 }
+import { Command } from 'commander';
+import lang from '../lang/index';
+import { CMD } from '../lib/commonType';
+import { version, name as cliName } from '../package.json';
 
 // @3 命令行书写
 const program = new Command();

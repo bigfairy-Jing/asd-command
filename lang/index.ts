@@ -5,7 +5,7 @@ const _packgeJson = JSON.parse(JSON.stringify(packageJson));
 
 const language: string = _packgeJson?.language || 'cn';
 
-enum LangType {
+export enum LangType {
   CN = 'cn',
   EN = 'en',
 }
@@ -100,6 +100,8 @@ export const langData: LangdData = {
     tomorrow: '明天',
     afterTomorrow: '后天',
     threeDaysFromNow: '大后天',
+    languageChangeSuccess: '切换语言成功',
+    showSelectLanguage: '您当前选择的语言是简体中文',
   },
   en: {
     languageChange: 'Language switching',
@@ -163,6 +165,8 @@ export const langData: LangdData = {
     tomorrow: 'tomorrow',
     afterTomorrow: 'the day after tomorrow',
     threeDaysFromNow: 'three days from now',
+    languageChangeSuccess: 'Switching language succeeded',
+    showSelectLanguage: 'The language you currently select is English',
   },
 };
 
@@ -229,10 +233,6 @@ export const langFormat: LangFormat = {
         图片类型: ${type}
       `;
     },
-    getSelectLanguage: lang => {
-      console.log('lang--------->', lang);
-      return lang === 'cn' && '您当前选择的语言是简体中文';
-    },
   },
   en: {
     vaildVersion(name: string, nodeVersion: string): string {
@@ -295,9 +295,6 @@ export const langFormat: LangFormat = {
         Picture height: ${height}pixel
         Picture type: ${type}
       `;
-    },
-    getSelectLanguage: lang => {
-      return lang === 'en' && 'The language you currently select is English';
     },
   },
 };

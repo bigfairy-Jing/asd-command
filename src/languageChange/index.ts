@@ -2,11 +2,10 @@ import inquirer from 'inquirer';
 import packageJson from '../../package.json';
 import fs from 'fs';
 import { CMD } from '../../lib/commonType';
-import lang, { langFormatData, langList } from '../../lang';
+import lang, { langList, langData, LangType } from '../../lang';
 import { consoleSuccess } from '../../lib/utils';
 
 const _packgeJson = JSON.parse(JSON.stringify(packageJson));
-const language: string = _packgeJson?.language || 'cn';
 
 type QuestionItem = {
   name: string;
@@ -16,12 +15,13 @@ type QuestionItem = {
   filter: (arg0: string) => string;
 };
 
-const writePackageLanguage = (language: string) => {
+const writePackageLanguage = (language: LangType) => {
   _packgeJson.language = language;
   const str = JSON.stringify(_packgeJson);
   try {
     fs.writeFileSync('./dist/package.json', str);
-    console.log();
+    consoleSuccess(langData[language].languageChangeSuccess);
+    consoleSuccess(langData[language].showSelectLanguage);
   } catch (error) {
     console.log(error);
   }
@@ -40,7 +40,7 @@ const selectLang = async () => {
     },
   ];
   const { language } = await inquirer.prompt(questions);
-  writePackageLanguage(language as string);
+  writePackageLanguage(language as LangType);
 };
 
 const showLangList = () => {
@@ -53,7 +53,7 @@ export default (cmd: CMD) => {
   const { length } = keys;
 
   if (length === 0) {
-    consoleSuccess(langFormatData.getSelectLanguage(language));
+    consoleSuccess(lang.showSelectLanguage);
     return;
   }
 
