@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import lang from '../../lang';
+import lang, { langFormatData } from '../../lang';
 
 export const getWeatherAPI = (type: string, city: string): string => {
   const { WEATHERKEY } = process.env;
@@ -39,8 +39,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
     const { city, weather, winddirection, windpower, temperature, reporttime, humidity } = now;
     console.log(
       chalk.blue(
-        // @ts-ignore
-        lang.showNowWeather(
+        langFormatData.showNowWeather(
           city,
           weather,
           winddirection,
@@ -48,7 +47,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
           temperature,
           humidity,
           reporttime
-        ) as string
+        )
       )
     );
     return;
@@ -57,10 +56,10 @@ export const printWeather = (type: string, res: WeathreRes): void => {
   const { forecasts } = res;
   const { reporttime, city, casts } = forecasts[0];
   const nameMap = {
-    '0': '今天',
-    '1': '明天',
-    '2': '后天',
-    '3': '大后天',
+    '0': lang.today,
+    '1': lang.tomorrow,
+    '2': lang.afterTomorrow,
+    '3': lang.threeDaysFromNow,
   };
   const showstr = casts
     .map((cast, index) => {
@@ -76,8 +75,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
       } = cast;
       // @ts-ignore
       const name = nameMap[`${index}`];
-      // @ts-ignore
-      const detail = lang.showFeatureWeathre(
+      const detail = langFormatData.showFeatureWeathre(
         dayweather,
         nightweather,
         daytemp,
@@ -86,7 +84,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
         nightwind,
         daypower,
         nightpower
-      ) as string;
+      );
       return `
 ${chalk.red(name as string)}
 ${detail}
@@ -94,10 +92,5 @@ ${detail}
     })
     .reduce((str, now) => str + now);
 
-  console.log(
-    chalk.blue(
-      // @ts-ignore
-      `${lang.showFeatureWeatherDesc(city, reporttime) as string}${showstr}`
-    )
-  );
+  console.log(chalk.blue(`${langFormatData.showFeatureWeatherDesc(city, reporttime)}${showstr}`));
 };

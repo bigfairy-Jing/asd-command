@@ -7,9 +7,9 @@ import imageminMozjepg from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
 import { consoleErr, consoleSuccess, isPathType, PathTypeEnum } from '../../lib/utils';
 import Regs from '../../lib/reg';
-import { TINIFYKEY } from '../../static/data';
+import TINIFYKEY from './data';
 import { CMD } from '../../lib/commonType';
-import lang from '../../lang';
+import lang, { langFormatData } from '../../lang';
 
 type TempFileItem = {
   fromFile: string;
@@ -103,14 +103,14 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
   }[type];
   if (pathType === PathTypeEnum.FILE) {
     if (!Regs.img.val.test(inPath)) {
-      consoleErr(lang.imgFileIputErr as string);
+      consoleErr(lang.imgFileIputErr);
       return;
     }
     // 单个图片文件
     try {
       fs.accessSync(toPath);
       await compressFn(inPath, `${toPath}/${path.basename(inPath)}`);
-      consoleSuccess(lang.imgCompressSuccess as string);
+      consoleSuccess(lang.imgCompressSuccess);
     } catch (error) {
       console.log(error);
       process.exit(12);
@@ -120,7 +120,7 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
   if (pathType === PathTypeEnum.DIRECTORY) {
     const fileCompressArr = formatDir(inPath, toPath);
     if (fileCompressArr.length === 0) {
-      consoleErr(lang.imgInputPathErr as string);
+      consoleErr(lang.imgInputPathErr);
       return;
     }
     try {
@@ -133,9 +133,7 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
         if (comreItem.status === 'fulfilled') successNum++;
         else errNum++;
       });
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      consoleSuccess(lang.getShowCompressRe(successNum, errNum));
+      consoleSuccess(langFormatData.getShowCompressRe(successNum, errNum));
     } catch (error) {
       console.log(error);
     }

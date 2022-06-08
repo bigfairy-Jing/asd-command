@@ -20,8 +20,8 @@ const urlSave = async (url: string) => {
   const { type } = imgSize(Buffer.from(res.rawBody));
 
   fs.writeFile(`${name}-save-${Date.now()}.${type}`, res.rawBody, 'binary', err => {
-    if (err) consoleErr(lang.imageSaveFail as string);
-    else consoleSuccess(lang.imageSaveSuccess as string);
+    if (err) consoleErr(lang.imageSaveFail);
+    else consoleSuccess(lang.imageSaveSuccess);
   });
 };
 

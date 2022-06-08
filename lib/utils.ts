@@ -2,7 +2,7 @@ import semver, { Range } from 'semver';
 import chalk from 'chalk';
 import _ from 'lodash';
 import fs from 'fs';
-import lang from '../lang';
+import lang, { langFormatData } from '../lang';
 import Regs from './reg';
 import { name, nodeVersion } from '../package.json';
 import Decimal from 'decimal.js';
@@ -43,15 +43,14 @@ export default {
 export const verifyArgs = (name: string, len: number = 1) => {
   consoleErr(JSON.stringify(minimist(process.argv.slice(2))._));
   if (minimist(process.argv.slice(3))._.length > len) {
-    consoleErr((lang.getArgsErr as (...argv: (string | number)[]) => string)(name, len));
+    consoleErr(langFormatData.getArgsErr(name, len));
     process.exit(9);
   }
 };
 
 export const validNodeVersion = (): boolean => {
   if (!semver.satisfies(process.version, nodeVersion as unknown as Range)) {
-    // @ts-ignore
-    console.log(chalk.red(lang.vaildVersion(name, nodeVersion)));
+    console.log(chalk.red(langFormatData.vaildVersion(name, nodeVersion)));
     return false;
   }
   return true;

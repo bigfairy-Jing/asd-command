@@ -1,7 +1,7 @@
 import { consoleSuccess, isImgFilePath, sizeTranslte } from '../../lib/utils';
 import imgSize from 'image-size';
 import fs from 'fs';
-import lang from '../../lang';
+import lang, { langFormatData } from '../../lang';
 import GotFetch from '../../lib/fetch';
 import { CMD } from '../../lib/commonType';
 
@@ -19,14 +19,7 @@ export const getImageInforPath = (str: string) => {
     const sizeInfo = `${KBSize}(${MBSize})`;
     const dimensions = imgSize(str);
     const { width, height, type } = dimensions;
-    consoleSuccess(
-      (lang.getShowImgInfo as (...argv: (string | number)[]) => string)(
-        sizeInfo,
-        width,
-        height,
-        type
-      )
-    );
+    consoleSuccess(langFormatData.getShowImgInfo(sizeInfo, width, height, type));
   } catch (error) {
     console.error(error);
   }
@@ -49,9 +42,7 @@ export const getImageInforLink = async (url: string) => {
   const sizeInfo = `${KBSize}(${MBSize})`;
   const dimensions = imgSize(Buffer.from(res.rawBody));
   const { width, height, type } = dimensions;
-  consoleSuccess(
-    (lang.getShowImgInfo as (...argv: (string | number)[]) => string)(sizeInfo, width, height, type)
-  );
+  consoleSuccess(langFormatData.getShowImgInfo(sizeInfo, width, height, type));
 };
 
 export default (str: string, cmd: CMD) => {

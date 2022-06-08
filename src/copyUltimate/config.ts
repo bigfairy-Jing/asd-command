@@ -8,7 +8,7 @@ import { splitTrim, isPositiveNumber } from '../../lib/utils';
 
 export const copyToClipboard = (text: string, successText: string = '') => {
   ncp.copy(text, () => {
-    consoleSuccess(successText || (lang.copySuccess as string));
+    consoleSuccess(successText || lang.copySuccess);
   });
 };
 
@@ -52,7 +52,7 @@ export const validArgu = (type: string, args: string[]): boolean => {
 export const copyByNum = (text: string, nums: number[], logTable: boolean = false) => {
   const texts: string[] = splitTrim(text);
   const copyTexts: string[] = nums.map(i => texts[i - 1]);
-  copyToClipboard(copyTexts.join(` `), lang.successSelectCopy as string);
+  copyToClipboard(copyTexts.join(` `), lang.successSelectCopy);
   consoleSuccess(copyTexts.join('  '));
   logTable && console.table(copyTexts);
 };
@@ -75,6 +75,6 @@ export const copyByExpre = (text: string, expres: string[], logTable: boolean = 
   const resultArr = reversalDoubleArray(tempArr);
   const copyTexts = resultArr.map(res => res.join(' ----> ')).join(`
 `);
-  copyToClipboard(copyTexts, lang.successSelectCopy as string);
+  copyToClipboard(copyTexts, lang.successSelectCopy);
   logTable && console.table(resultArr);
 };

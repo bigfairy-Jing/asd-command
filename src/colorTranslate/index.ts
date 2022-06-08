@@ -21,7 +21,7 @@ export default (colorStr: string) => {
   const colorType = validColor(colorStr);
 
   if (!colorType) {
-    consoleErr(lang.colorInputErr as string);
+    consoleErr(lang.colorInputErr);
   }
 
   if (colorType === 'rgba') {

@@ -16,13 +16,13 @@ export default async (text: string) => {
 
   const word = useChinese ? text : noCase(text);
 
-  spinner.log(lang.translating as string);
+  spinner.log(lang.translating);
 
   const { code, res, error } = await GotFetch.get(
     `${getTranslateUrl(useChinese)}${urlencode(word)}`
   );
   if (code !== 0) {
-    spinner.stop(lang.translateError as string);
+    spinner.stop(lang.translateError);
     console.log(`${chalk.red(error)}`);
     return;
   }

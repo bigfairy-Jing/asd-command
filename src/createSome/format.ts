@@ -50,7 +50,7 @@ export const getTimeStamp = (val: dayjs.ConfigType = '') => {
     `)
     );
   } catch (error) {
-    console.error(lang.translateTimeErro as string);
+    console.error(lang.translateTimeErro);
   }
 };
 

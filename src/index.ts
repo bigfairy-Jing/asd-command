@@ -36,7 +36,7 @@ program.option('-V --version', `${cliName} ${version}`);
 // $1 翻译
 program
   .command('fy <word>')
-  .description(lang.translate as string)
+  .description(lang.translate)
   .action((val: string) => {
     verifyArgs('fy');
     translate(val);
@@ -44,7 +44,7 @@ program
 
 program
   .command('translate <word>')
-  .description(lang.translate as string)
+  .description(lang.translate)
   .action((val: string) => {
     verifyArgs('translate');
     translate(val);
@@ -53,7 +53,7 @@ program
 // $2 天气
 program
   .command('tq [text]')
-  .description(lang.weather as string)
+  .description(lang.weather)
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
@@ -64,7 +64,7 @@ program
 
 program
   .command('weather [text]')
-  .description(lang.weather as string)
+  .description(lang.weather)
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
@@ -76,7 +76,7 @@ program
 // $3 随机选择
 program
   .command('select <word>')
-  .description(lang.selectRandom as string)
+  .description(lang.selectRandom)
   .action((val: string) => {
     verifyArgs('select');
     randomSelect(val);
@@ -90,7 +90,7 @@ program
   .option('-t, --github', 'search by github')
   .option('-g, --google', 'search by google')
   .option('-a, --all', 'search by all set')
-  .description(lang.searchDesc as string)
+  .description(lang.searchDesc)
   .action((val: string, cmd: SearchCMD) => {
     verifyArgs('search');
     search(val, cmd);
@@ -99,7 +99,7 @@ program
 // $5 打开url
 program
   .command('open <link>')
-  .description(lang.openBrowser as string)
+  .description(lang.openBrowser)
   .action((link: string) => {
     verifyArgs('open');
     openBrowser(link);
@@ -114,7 +114,7 @@ program
   .option('-rl, --randomletter', 'random letter')
   .option('-rp, --randomphone', 'random phone number')
   .option('-rh, --randomhue', 'random colour')
-  .description(lang.createAny as string)
+  .description(lang.createAny)
   .action((val: string, cmd: CMD) => {
     verifyArgs('cs');
     creaetSome(val, cmd);
@@ -123,7 +123,7 @@ program
 // $7 颜色转换
 program
   .command('cc <color>')
-  .description(lang.colorTranslate as string)
+  .description(lang.colorTranslate)
   .action((color: string) => {
     verifyArgs('cc');
     colorTranslate(color);
@@ -134,7 +134,7 @@ program
   .command('imgtl <imgStr>')
   .option('-ib, --imgtobase64', 'img to base64')
   .option('-ub, --urltobase64', 'img link to base64')
-  .description(lang.imgTranslate as string)
+  .description(lang.imgTranslate)
   .action((val: string, cmd: CMD) => {
     verifyArgs('imgtl');
     imgTranslate(val, cmd);
@@ -143,7 +143,7 @@ program
 // $9 url 图片地址保存
 program
   .command('imgsave <imgLink>')
-  .description(lang.imageSaveSuccess as string)
+  .description(lang.imageSaveSuccess)
   .action((val: string) => {
     verifyArgs('imgsave');
     imgLinkSave(val);
@@ -154,7 +154,7 @@ program
   .command('imgcp <inPath> <outPath>')
   .option('-tin, --tinypng', 'compress by tinypng')
   .option('-images, --nodeimages', 'compress by npm node-images')
-  .description(lang.imgCompress as string)
+  .description(lang.imgCompress)
   .action((pathStr: string, outPath: string, cmd: CMD) => {
     verifyArgs('imgcp', 2);
     imgCompress(pathStr, outPath, cmd);
@@ -165,7 +165,7 @@ program
   .command('imginfo <imgPath>')
   .option('-b, --base', 'Get file picture information')
   .option('-l, --link', 'Get linked picture information')
-  .description(lang.showImgInfo as string)
+  .description(lang.showImgInfo)
   .action((imgPath: string, cmd: CMD) => {
     verifyArgs('imginfo');
     imgInfo(imgPath, cmd);
@@ -174,7 +174,7 @@ program
 // $12 链接转为二维码
 program
   .command('qrcode <link>')
-  .description(lang.linkToqrCodeTo as string)
+  .description(lang.linkToqrCodeTo)
   .action((link: string) => {
     verifyArgs('qrcode');
     createQrcode(link);
@@ -183,7 +183,7 @@ program
 // $13 货币转换
 program
   .command('money [translateStr]')
-  .description(lang.moneyTranslate as string)
+  .description(lang.moneyTranslate)
   .option('-sct, --selectcountry', 'The currency is converted by selecting the country')
   .option('-scr, --selectcurrency', 'Currency is converted by selecting a currency')
   .option('-showcode, --showcode', 'Show all currency codes')
@@ -197,7 +197,7 @@ program
 // $14 终极复制
 program
   .command('copy <word> <opt>')
-  .description(lang.copy as string)
+  .description(lang.copy)
   .option('-bn, --bynumber', 'copy by number')
   .option('-be, --byexpre', 'copy by expression')
   .action((word: string, opt: string, cmd: CMD) => {
@@ -208,7 +208,7 @@ program
 // $15 选择中英文
 program
   .command('lang')
-  .description(lang.languageChange as string)
+  .description(lang.languageChange)
   .option('-ls, --ls', 'show language list')
   .option('-select, --select', 'Choose the language you currently need')
   .action((cmd: CMD) => {

@@ -14,13 +14,13 @@ export default (copyStr: string, opt: string, cmd: CMD) => {
   }
 
   if (opts.length === 0) {
-    consoleErr(lang.secondParamErr as string);
+    consoleErr(lang.secondParamErr);
   }
 
   switch (keys[0]) {
     case 'bynumber':
       if (!validArgu('bynumber', opts)) {
-        consoleErr(lang.secondParamErr as string);
+        consoleErr(lang.secondParamErr);
         return;
       }
       copyByNum(
@@ -30,7 +30,7 @@ export default (copyStr: string, opt: string, cmd: CMD) => {
       break;
     case 'byexpre':
       if (!validArgu('byexpre', opts)) {
-        consoleErr(lang.secondParamErr as string);
+        consoleErr(lang.secondParamErr);
         return;
       }
       copyByExpre(copyStr, opts);

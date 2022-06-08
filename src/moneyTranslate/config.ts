@@ -1,4 +1,4 @@
-import lang, { languageType, moneysLangData } from '../../lang';
+import lang, { langFormatData, languageType, moneysLangData } from '../../lang';
 import { moneysCountryArr, moneysCurrencyArr, ExchangeRateKey, supportCurrencys } from './data';
 import inquirer from 'inquirer';
 import dayjs from 'dayjs';
@@ -103,8 +103,14 @@ export const selectByMoney = async (type: CodeType) => {
         selectTo as string
       );
       if (success) {
-        // @ts-ignore
-        console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney as number, rate)));
+        console.log(
+          langFormatData.showMoneyInfo(
+            rate,
+            update,
+            inputMoney as number,
+            mul(inputMoney as number, rate)
+          )
+        );
       }
     })
     .catch(err => console.error(err));
@@ -135,8 +141,14 @@ export const inputByMoney = async (dbCode: string) => {
       const { inputMoney } = answers;
       const { success, rate, update } = await requestMoneyExchange(codeArr[0], codeArr[1]);
       if (success) {
-        // @ts-ignore
-        console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney as number, rate)));
+        console.log(
+          langFormatData.showMoneyInfo(
+            rate,
+            update,
+            inputMoney as number,
+            mul(inputMoney as number, rate)
+          )
+        );
       }
     })
     .catch(err => console.error(err));

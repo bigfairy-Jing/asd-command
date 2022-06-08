@@ -11,12 +11,12 @@ import { copyToClipboard } from '../copyUltimate/config';
 const imgToBase64 = (imgLink: string) => {
   const stat = fs.lstatSync(imgLink);
   if (!stat.isFile() && regs.img.val.test(imgLink)) {
-    consoleErr(lang.showInputImgFile as string);
+    consoleErr(lang.showInputImgFile    );
     return;
   }
 
   if (stat.size > 1024 * 1024 * 100) {
-    consoleErr(lang.inputImgMaxSize as string);
+    consoleErr(lang.inputImgMaxSize);
     return;
   }
 
@@ -25,7 +25,7 @@ const imgToBase64 = (imgLink: string) => {
   const fileData = fs.readFileSync(filePath);
   const base64Data = Buffer.from(fileData).toString('base64');
   const base64String = `data:${fileMimeType as string} ;base64,${base64Data}`;
-  copyToClipboard(base64String, lang.imgTranslateBase64 as string);
+  copyToClipboard(base64String, lang.imgTranslateBase64);
 };
 
 // const Base64ToImg = (base64Str: string) => {
