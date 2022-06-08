@@ -10,6 +10,7 @@ import Regs from '../../lib/reg';
 import TINIFYKEY from './data';
 import { CMD } from '../../lib/commonType';
 import lang, { langFormatData } from '../../lang';
+import spinner from '../../lib/spinner';
 
 type TempFileItem = {
   fromFile: string;
@@ -109,8 +110,9 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
     // 单个图片文件
     try {
       fs.accessSync(toPath);
+      spinner.log(lang.imgCompression);
       await compressFn(inPath, `${toPath}/${path.basename(inPath)}`);
-      consoleSuccess(lang.imgCompressSuccess);
+      spinner.success(lang.imgCompressSuccess);
     } catch (error) {
       console.log(error);
       process.exit(12);
@@ -124,6 +126,7 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
       return;
     }
     try {
+      spinner.log(lang.imgCompression);
       const compreRes = await Promise.allSettled(
         fileCompressArr.map(({ fromFile, toFile }) => compressFn(fromFile, toFile))
       );
@@ -133,9 +136,10 @@ export default async (inPath: string, toPath: string, cmd: CMD) => {
         if (comreItem.status === 'fulfilled') successNum++;
         else errNum++;
       });
-      consoleSuccess(langFormatData.getShowCompressRe(successNum, errNum));
+      spinner.success(langFormatData.getShowCompressRe(successNum, errNum));
     } catch (error) {
       console.log(error);
+      spinner.stop();
     }
   }
 };

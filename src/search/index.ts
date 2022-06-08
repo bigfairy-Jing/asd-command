@@ -1,9 +1,6 @@
 import APIS, { SearchAPISKey } from './config';
 import openBrowser from '../openBrowser';
-
-export type CMD = {
-  [key in SearchAPISKey | 'all']: boolean;
-};
+import { CMD } from '../../lib/commonType';
 
 export default (val: string, cmd: CMD) => {
   const keys = Object.keys(cmd);

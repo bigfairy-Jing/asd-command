@@ -41,7 +41,7 @@ export default {
 };
 
 export const verifyArgs = (name: string, len: number = 1) => {
-  consoleErr(JSON.stringify(minimist(process.argv.slice(2))._));
+  // consoleErr(JSON.stringify(minimist(process.argv.slice(2))._));
   if (minimist(process.argv.slice(3))._.length > len) {
     consoleErr(langFormatData.getArgsErr(name, len));
     process.exit(9);

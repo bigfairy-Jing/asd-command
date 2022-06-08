@@ -5,23 +5,6 @@ import { validNodeVersion, verifyArgs } from '../lib/utils';
 import { CMD } from '../lib/commonType';
 import { version, name as cliName } from '../package.json';
 
-// tool
-import translate from './translate';
-import weather, { weatherOpt } from './weather';
-import randomSelect from './randomSelect';
-import search, { CMD as SearchCMD } from './search';
-import openBrowser from './openBrowser';
-import creaetSome from './createSome';
-import colorTranslate from './colorTranslate';
-import imgTranslate from './imgTranslate';
-import createQrcode from './createQrcode';
-import imgLinkSave from './imgLinkSave';
-import imgCompress from './imgCompress';
-import imgInfo from './imgInfo';
-import moneyTranslate from './moneyTranslate';
-import copyUltimate from './copyUltimate';
-import languageChange from './languageChange';
-
 // @ 1检测NODE版本是否合格
 if (!validNodeVersion()) {
   process.exit(1);
@@ -37,17 +20,19 @@ program.option('-V --version', `${cliName} ${version}`);
 program
   .command('fy <word>')
   .description(lang.translate)
-  .action((val: string) => {
+  .action(async (val: string) => {
     verifyArgs('fy');
-    translate(val);
+    const translate = await import('./translate');
+    translate.default(val);
   });
 
 program
   .command('translate <word>')
   .description(lang.translate)
-  .action((val: string) => {
-    verifyArgs('translate');
-    translate(val);
+  .action(async (val: string) => {
+    verifyArgs('fy');
+    const translate = await import('./translate');
+    translate.default(val);
   });
 
 // $2 天气
@@ -57,9 +42,10 @@ program
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
-  .action((text: string, opt: weatherOpt) => {
+  .action(async (text: string, opt: CMD) => {
     verifyArgs('tq');
-    weather(text, opt);
+    const weather = await import('./weather');
+    weather.default(text, opt);
   });
 
 program
@@ -68,18 +54,20 @@ program
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
-  .action((text: string, opt: weatherOpt) => {
-    verifyArgs('weather');
-    weather(text, opt);
+  .action(async (text: string, opt: CMD) => {
+    verifyArgs('tq');
+    const weather = await import('./weather');
+    weather.default(text, opt);
   });
 
 // $3 随机选择
 program
   .command('select <word>')
   .description(lang.selectRandom)
-  .action((val: string) => {
+  .action(async (val: string) => {
     verifyArgs('select');
-    randomSelect(val);
+    const randomSelect = await import('./randomSelect');
+    randomSelect.default(val);
   });
 
 // $4 搜索跳转
@@ -91,18 +79,20 @@ program
   .option('-g, --google', 'search by google')
   .option('-a, --all', 'search by all set')
   .description(lang.searchDesc)
-  .action((val: string, cmd: SearchCMD) => {
+  .action(async (val: string, cmd: CMD) => {
     verifyArgs('search');
-    search(val, cmd);
+    const search = await import('./search');
+    search.default(val, cmd);
   });
 
 // $5 打开url
 program
   .command('open <link>')
   .description(lang.openBrowser)
-  .action((link: string) => {
+  .action(async (link: string) => {
     verifyArgs('open');
-    openBrowser(link);
+    const openBrowser = await import('./openBrowser');
+    openBrowser.default(link);
   });
 
 // $6 生成数字 随机数 唯一ID 时间戳 指定长度随机字母 随机手机号 随机姓名 随机身份证 随机颜色
@@ -115,18 +105,20 @@ program
   .option('-rp, --randomphone', 'random phone number')
   .option('-rh, --randomhue', 'random colour')
   .description(lang.createAny)
-  .action((val: string, cmd: CMD) => {
+  .action(async (val: string, cmd: CMD) => {
     verifyArgs('cs');
-    creaetSome(val, cmd);
+    const creaetSome = await import('./createSome');
+    creaetSome.default(val, cmd);
   });
 
 // $7 颜色转换
 program
   .command('cc <color>')
   .description(lang.colorTranslate)
-  .action((color: string) => {
+  .action(async (color: string) => {
     verifyArgs('cc');
-    colorTranslate(color);
+    const colorTranslate = await import('./colorTranslate');
+    colorTranslate.default(color);
   });
 
 // $8 图片转换 -> base64  base64 -> 图片  url -> base64
@@ -135,18 +127,20 @@ program
   .option('-ib, --imgtobase64', 'img to base64')
   .option('-ub, --urltobase64', 'img link to base64')
   .description(lang.imgTranslate)
-  .action((val: string, cmd: CMD) => {
+  .action(async (val: string, cmd: CMD) => {
     verifyArgs('imgtl');
-    imgTranslate(val, cmd);
+    const imgTranslate = await import('./imgTranslate');
+    imgTranslate.default(val, cmd);
   });
 
 // $9 url 图片地址保存
 program
   .command('imgsave <imgLink>')
   .description(lang.imageSaveSuccess)
-  .action((val: string) => {
+  .action(async (val: string) => {
     verifyArgs('imgsave');
-    imgLinkSave(val);
+    const imgLinkSave = await import('./imgLinkSave');
+    imgLinkSave.default(val);
   });
 
 // $10 图片压缩
@@ -155,9 +149,10 @@ program
   .option('-tin, --tinypng', 'compress by tinypng')
   .option('-images, --nodeimages', 'compress by npm node-images')
   .description(lang.imgCompress)
-  .action((pathStr: string, outPath: string, cmd: CMD) => {
+  .action(async (pathStr: string, outPath: string, cmd: CMD) => {
     verifyArgs('imgcp', 2);
-    imgCompress(pathStr, outPath, cmd);
+    const imgCompress = await import('./imgCompress');
+    imgCompress.default(pathStr, outPath, cmd);
   });
 
 // $11 获取图片信息 单个文件 文件夹
@@ -166,18 +161,20 @@ program
   .option('-b, --base', 'Get file picture information')
   .option('-l, --link', 'Get linked picture information')
   .description(lang.showImgInfo)
-  .action((imgPath: string, cmd: CMD) => {
+  .action(async (imgPath: string, cmd: CMD) => {
     verifyArgs('imginfo');
-    imgInfo(imgPath, cmd);
+    const imgInfo = await import('./imgInfo');
+    imgInfo.default(imgPath, cmd);
   });
 
 // $12 链接转为二维码
 program
   .command('qrcode <link>')
   .description(lang.linkToqrCodeTo)
-  .action((link: string) => {
+  .action(async (link: string) => {
     verifyArgs('qrcode');
-    createQrcode(link);
+    const createQrcode = await import('./createQrcode');
+    createQrcode.default(link);
   });
 
 // $13 货币转换
@@ -189,9 +186,10 @@ program
   .option('-showcode, --showcode', 'Show all currency codes')
   .option('-showcodecurrency, --showcurrency', 'Show all currency codes')
   .option('-b, --bycode', 'Currency is converted by code')
-  .action((translateStr: string, cmd: CMD) => {
+  .action(async (translateStr: string, cmd: CMD) => {
     verifyArgs('money');
-    moneyTranslate(translateStr, cmd);
+    const moneyTranslate = await import('./moneyTranslate');
+    moneyTranslate.default(translateStr, cmd);
   });
 
 // $14 终极复制
@@ -200,9 +198,10 @@ program
   .description(lang.copy)
   .option('-bn, --bynumber', 'copy by number')
   .option('-be, --byexpre', 'copy by expression')
-  .action((word: string, opt: string, cmd: CMD) => {
+  .action(async (word: string, opt: string, cmd: CMD) => {
     verifyArgs('copy', 2);
-    copyUltimate(word, opt, cmd);
+    const copyUltimate = await import('./copyUltimate');
+    copyUltimate.default(word, opt, cmd);
   });
 
 // $15 选择中英文
@@ -211,8 +210,9 @@ program
   .description(lang.languageChange)
   .option('-ls, --ls', 'show language list')
   .option('-select, --select', 'Choose the language you currently need')
-  .action((cmd: CMD) => {
-    languageChange(cmd);
+  .action(async (cmd: CMD) => {
+    const languageChange = await import('./languageChange');
+    languageChange.default(cmd);
   });
 
 program.parse(process.argv);

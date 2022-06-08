@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import packageJson from '../../package.json';
 import fs from 'fs';
 import { CMD } from '../../lib/commonType';
-import lang, { langFormatData, langList, languageType } from '../../lang';
+import lang, { langFormatData, langList } from '../../lang';
 import { consoleSuccess } from '../../lib/utils';
 
 const _packgeJson = JSON.parse(JSON.stringify(packageJson));
@@ -53,7 +53,6 @@ export default (cmd: CMD) => {
   const { length } = keys;
 
   if (length === 0) {
-    console.log(languageType, '_______>');
     consoleSuccess(langFormatData.getSelectLanguage(language));
     return;
   }

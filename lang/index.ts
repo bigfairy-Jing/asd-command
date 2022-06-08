@@ -79,6 +79,7 @@ export const langData: LangdData = {
     imgSave: '图片链接保存本地',
     linkToqrCodeTo: '链接保存为二维码',
     imgCompress: '图片压缩',
+    imgCompression: '图片压缩中',
     imgFileIputErr: '文件传入类型错误,为非图片类型',
     imgInputPathErr: '输入路径有误，非图片类型或包含图片文件夹',
     imgCompressSuccess: '图片压缩成功',
@@ -140,6 +141,7 @@ export const langData: LangdData = {
     imgSave: 'Picture links saved locally',
     linkToqrCodeTo: 'Save Link as QR code',
     imgCompress: 'Picture compression',
+    imgCompression: 'The picture is being compressed',
     imgFileIputErr: 'File incoming type error, non picture type',
     imgInputPathErr:
       'The input path is incorrect. It is not a picture type or contains a picture folder',

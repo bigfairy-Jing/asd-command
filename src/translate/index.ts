@@ -22,12 +22,12 @@ export default async (text: string) => {
     `${getTranslateUrl(useChinese)}${urlencode(word)}`
   );
   if (code !== 0) {
-    spinner.stop(lang.translateError);
+    spinner.fail(lang.translateError);
     console.log(`${chalk.red(error)}`);
     return;
   }
 
-  spinner.stop('翻译完成');
+  spinner.success('翻译完成');
   // @ts-ignore
   console.log(parser(useChinese, res.body));
 };
