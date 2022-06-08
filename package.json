@@ -4,6 +4,8 @@
   "description": "a command for node",
   "main": "sr/cindex.js",
   "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "postinstall": "node ./postinstall.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "dev-n": "ts-node-dev src/index.ts",
@@ -56,7 +58,8 @@
     "ts-node-dev": "^1.1.8",
     "tslib": "^2.3.1",
     "typescript": "^4.6.3",
-    "urlencode": "^1.1.0"
+    "urlencode": "^1.1.0",
+    "vuepress": "^1.9.7"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
