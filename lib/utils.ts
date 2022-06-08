@@ -16,7 +16,8 @@ export const consoleErr = (str: string) => {
 };
 
 export const consoleSuccess = (str: string) => {
-  console.log(`🎉 ${str}`);
+  console.log(`🎉 
+    ${str}`);
 };
 
 export enum PathTypeEnum {
@@ -48,7 +49,7 @@ export const verifyArgs = (name: string, len: number = 1) => {
 };
 
 export const validNodeVersion = (): boolean => {
-  if (!semver.satisfies(process.version, (nodeVersion as unknown) as Range)) {
+  if (!semver.satisfies(process.version, nodeVersion as unknown as Range)) {
     // @ts-ignore
     console.log(chalk.red(lang.vaildVersion(name, nodeVersion)));
     return false;

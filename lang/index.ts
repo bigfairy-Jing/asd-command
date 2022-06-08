@@ -1,11 +1,9 @@
 import { name, version } from '../package.json';
+import packageJson from '../package.json';
 
-let language: string = 'cn';
-try {
-  const { language: packageLanguage } = require('../package.json');
-  language = packageLanguage || 'cn';
-  // eslint-disable-next-line no-empty
-} catch (error) {}
+const _packgeJson = JSON.parse(JSON.stringify(packageJson));
+
+const language: string = _packgeJson?.language || 'cn';
 
 type LangdData = {
   cn: {
@@ -24,6 +22,8 @@ type MoneysLangData = {
   currency_en?: string;
 };
 
+export const langList = [{ name: '简体中文' }, { name: 'English' }];
+
 export const langData: LangdData = {
   cn: {
     vaildVersion(name: string, nodeVersion: string): string {
@@ -32,6 +32,7 @@ export const langData: LangdData = {
     getArgsErr: (name, len) => {
       return `当前命令${name}, 最多支持${len}个参数，请检查后重新输入命令！`;
     },
+    languageChange: '语言切换',
     successDL: `恭喜您！${name} V${version} 下载成功!`,
     // 翻译
     translate: '中英互译',
@@ -142,14 +143,21 @@ export const langData: LangdData = {
       `;
     },
     successSelectCopy: '选择内容已复制到粘贴板',
+    getSelectLanguage: lang => {
+      console.log('lang--------->', lang);
+      return lang === 'cn' && '您当前选择的语言是简体中文';
+    },
   },
   en: {
     vaildVersion(name: string, nodeVersion: string): string {
       return `Your current node version is ${process.version}, but ${name} requires node version ${nodeVersion}. Please upgrade your local Node`;
     },
-    successDL: `${name} V${version} download successfully!`,
+    successDL: `congratulations! ${name} V${version} download successfully!`,
     translate: 'Chinese<>English translate',
     translating: 'In translation......',
+    getSelectLanguage: lang => {
+      return lang === 'en' && 'The language you currently select is English';
+    },
   },
 };
 

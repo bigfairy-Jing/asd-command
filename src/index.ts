@@ -27,9 +27,6 @@ if (!validNodeVersion()) {
   process.exit(1);
 }
 
-// @2 下载时候的选项（中英文）
-// new Select();
-
 // @3 命令行书写
 const program = new Command();
 program.version(`${cliName} ${version}`).usage('<command> [options]');
@@ -210,10 +207,12 @@ program
 
 // $15 选择中英文
 program
-  .command('language')
+  .command('lang')
   .description(lang.languageChange as string)
-  .action(() => {
-    languageChange();
+  .option('-ls, --ls', 'show language list')
+  .option('-select, --select', 'Choose the language you currently need')
+  .action((cmd: CMD) => {
+    languageChange(cmd);
   });
 
 program.parse(process.argv);

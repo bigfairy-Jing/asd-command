@@ -1,12 +1,25 @@
 const fs = require('fs');
+const chalk = require('chalk')
 const inquirer = require('inquirer');
 const package = require('./package.json');
 
+const getSuccesText = (lan) => {
+  const {name, version} = package;
+  return lan === 'cn'? 
+    `恭喜您！${name} V${version} 下载成功!`
+    :
+    `congratulations! ${name} V${version} download successfully!`;
+}
+
 const writePackageLanguage = (language) => {
-  package.Language = language
-  const str = SON.stringify(package,"","\t")
+  package.language = language
+  const str = JSON.stringify(package)
   try {
-    fs.writeFileSync('package.json', str)
+    fs.writeFileSync('./dist/package.json', str)
+    
+    console.log(
+      chalk.white.bgGreen.bold(getSuccesText(language))
+    );
   } catch (error) {
     console.log(error)
   }
