@@ -1,6 +1,11 @@
 import { name, version } from '../package.json';
 
-import { language } from '../static/data';
+let language: string = 'cn';
+try {
+  const { language: packageLanguage } = require('../package.json');
+  language = packageLanguage || 'cn';
+  // eslint-disable-next-line no-empty
+} catch (error) {}
 
 type LangdData = {
   cn: {
@@ -15,7 +20,8 @@ type MoneysLangData = {
   cn?: string;
   en?: string;
   currency_code: string;
-  currency_cn: string;
+  currency_cn?: string;
+  currency_en?: string;
 };
 
 export const langData: LangdData = {
@@ -109,12 +115,15 @@ export const langData: LangdData = {
     getShowCompressRe: (successNum, errNum) => {
       return `图片压缩完毕! 其压缩成功${successNum}个, 压缩失败${errNum}个 `;
     },
+    moneyTranslate: '货币转换',
     moneyFromCountryTips: '请选择要转换的货币从属国家 - 从',
     moneyToCountryTips: '请选择要转换到的货币从属国家 - 至',
     moneyFromCurrnecyTips: '请选择要转换的货币 - 从',
     moneyToCurrnecyTips: '请选择要转换至的货币 - 至',
     moneyInputNumber: '请输入转换的金额',
     moneyCodeErr: '输入货币编码不支持, 请使用-l 或 --ls 查看所有支持的编码',
+    copy: '多角度复制文案',
+    secondParamErr: '第二项参数传入有误',
     showMoneyInfo: (rate, update, val, result): string => {
       return `
         ${val} x ${rate} = ${result}
@@ -122,7 +131,8 @@ export const langData: LangdData = {
         汇率更新时间为 ${update}
       `;
     },
-    copySuccess: '内容已复制到剪贴板',
+    copySuccess: '内容已复制到粘贴板',
+    showImgInfo: '展示图片信息',
     getShowImgInfo: (imgSize, width, height, type): string => {
       return `
         图片大小: ${imgSize}
@@ -131,6 +141,7 @@ export const langData: LangdData = {
         图片类型: ${type}
       `;
     },
+    successSelectCopy: '选择内容已复制到粘贴板',
   },
   en: {
     vaildVersion(name: string, nodeVersion: string): string {

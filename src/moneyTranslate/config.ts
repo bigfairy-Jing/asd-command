@@ -47,7 +47,7 @@ export const requestMoneyExchange = async (
   return {
     success: true,
     rate: conversion_rates[toCode] as number,
-    update: dayjs.unix(time_last_update_unix).format('YYYY-MM-DD HH:mm:ss'),
+    update: dayjs.unix(time_last_update_unix as number).format('YYYY-MM-DD HH:mm:ss'),
   };
 };
 
@@ -73,7 +73,7 @@ export const selectByMoney = async (type: CodeType) => {
         choices: getShowArr(type).map(
           item => `${item[typeMap[type].prefix as PrefixUintKey]}---> ${item.currency_code}`
         ),
-        filter: val => {
+        filter: (val: string) => {
           return val.split('---> ')[1];
         },
         loop: false,
@@ -85,7 +85,7 @@ export const selectByMoney = async (type: CodeType) => {
         choices: getShowArr(type).map(
           item => `${item[typeMap[type].prefix as PrefixUintKey]}---> ${item.currency_code}`
         ),
-        filter: val => {
+        filter: (val: string) => {
           return val.split('---> ')[1];
         },
         loop: false,
@@ -98,10 +98,13 @@ export const selectByMoney = async (type: CodeType) => {
     ])
     .then(async answers => {
       const { selectFrom, selectTo, inputMoney } = answers;
-      const { success, rate, update } = await requestMoneyExchange(selectFrom, selectTo);
+      const { success, rate, update } = await requestMoneyExchange(
+        selectFrom as string,
+        selectTo as string
+      );
       if (success) {
         // @ts-ignore
-        console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney, rate)));
+        console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney as number, rate)));
       }
     })
     .catch(err => console.error(err));
@@ -109,34 +112,32 @@ export const selectByMoney = async (type: CodeType) => {
 
 export const inputByMoney = async (dbCode: string) => {
   const codeArr = dbCode.split('-');
-  
-  if(codeArr.length !== 2) {
-    console.error(lang.optionError2)
+
+  if (codeArr.length !== 2) {
+    console.error(lang.optionError2);
     return;
-  };
-  
-  if(!supportCurrencys.includes(codeArr[0]) || !supportCurrencys.includes(codeArr[1])){
+  }
+
+  if (!supportCurrencys.includes(codeArr[0]) || !supportCurrencys.includes(codeArr[1])) {
     console.error(lang.moneyCodeErr);
     return;
   }
 
   inquirer
-  .prompt([
-    {
-      type: 'number',
-      name: 'inputMoney',
-      message: lang.moneyInputNumber,
-    },
-  ])
-  .then(async answers => {
-    const { inputMoney } = answers;
-    const { success, rate, update } = await requestMoneyExchange(codeArr[0], codeArr[1]);
-    if (success) {
-      // @ts-ignore
-      console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney, rate)));
-    }
-  })
-  .catch(err => console.error(err));
-}
-
-inputByMoney('CNY-USD')
+    .prompt([
+      {
+        type: 'number',
+        name: 'inputMoney',
+        message: lang.moneyInputNumber,
+      },
+    ])
+    .then(async answers => {
+      const { inputMoney } = answers;
+      const { success, rate, update } = await requestMoneyExchange(codeArr[0], codeArr[1]);
+      if (success) {
+        // @ts-ignore
+        console.log(lang.showMoneyInfo(rate, update, inputMoney, mul(inputMoney as number, rate)));
+      }
+    })
+    .catch(err => console.error(err));
+};

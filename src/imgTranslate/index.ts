@@ -6,7 +6,7 @@ import regs from '../../lib/reg';
 // import { getBase64ImgType } from './config';
 import { CMD } from '../../lib/commonType';
 import { consoleErr } from '../../lib/utils';
-import { copyToClipboard } from '../ultimateCopy/config';
+import { copyToClipboard } from '../copyUltimate/config';
 
 const imgToBase64 = (imgLink: string) => {
   const stat = fs.lstatSync(imgLink);

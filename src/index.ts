@@ -18,6 +18,9 @@ import createQrcode from './createQrcode';
 import imgLinkSave from './imgLinkSave';
 import imgCompress from './imgCompress';
 import imgInfo from './imgInfo';
+import moneyTranslate from './moneyTranslate';
+import copyUltimate from './copyUltimate';
+import languageChange from './languageChange';
 
 // @ 1检测NODE版本是否合格
 if (!validNodeVersion()) {
@@ -96,7 +99,7 @@ program
     search(val, cmd);
   });
 
-// $5 打开浏览器
+// $5 打开url
 program
   .command('open <link>')
   .description(lang.openBrowser as string)
@@ -120,7 +123,7 @@ program
     creaetSome(val, cmd);
   });
 
-// $6 颜色转换
+// $7 颜色转换
 program
   .command('cc <color>')
   .description(lang.colorTranslate as string)
@@ -129,17 +132,18 @@ program
     colorTranslate(color);
   });
 
-// $7 图片转换 -> base64  base64 -> 图片  url -> base64
+// $8 图片转换 -> base64  base64 -> 图片  url -> base64
 program
   .command('imgtl <imgStr>')
   .option('-ib, --imgtobase64', 'img to base64')
+  .option('-ub, --urltobase64', 'img link to base64')
   .description(lang.imgTranslate as string)
   .action((val: string, cmd: CMD) => {
     verifyArgs('imgtl');
     imgTranslate(val, cmd);
   });
 
-// $8 url 图片地址保存
+// $9 url 图片地址保存
 program
   .command('imgsave <imgLink>')
   .description(lang.imageSaveSuccess as string)
@@ -148,7 +152,7 @@ program
     imgLinkSave(val);
   });
 
-// $9 图片压缩
+// $10 图片压缩
 program
   .command('imgcp <inPath> <outPath>')
   .option('-tin, --tinypng', 'compress by tinypng')
@@ -159,24 +163,57 @@ program
     imgCompress(pathStr, outPath, cmd);
   });
 
-// $10 获取图片信息 单个文件 文件夹
+// $11 获取图片信息 单个文件 文件夹
 program
   .command('imginfo <imgPath>')
   .option('-b, --base', 'Get file picture information')
   .option('-l, --link', 'Get linked picture information')
   .description(lang.showImgInfo as string)
-  .action((imgPath: string) => {
+  .action((imgPath: string, cmd: CMD) => {
     verifyArgs('imginfo');
-    imgInfo(imgPath);
+    imgInfo(imgPath, cmd);
   });
 
-// $10 链接转为二维码
+// $12 链接转为二维码
 program
   .command('qrcode <link>')
   .description(lang.linkToqrCodeTo as string)
   .action((link: string) => {
     verifyArgs('qrcode');
     createQrcode(link);
+  });
+
+// $13 货币转换
+program
+  .command('money [translateStr]')
+  .description(lang.moneyTranslate as string)
+  .option('-sct, --selectcountry', 'The currency is converted by selecting the country')
+  .option('-scr, --selectcurrency', 'Currency is converted by selecting a currency')
+  .option('-showcode, --showcode', 'Show all currency codes')
+  .option('-showcodecurrency, --showcurrency', 'Show all currency codes')
+  .option('-b, --bycode', 'Currency is converted by code')
+  .action((translateStr: string, cmd: CMD) => {
+    verifyArgs('money');
+    moneyTranslate(translateStr, cmd);
+  });
+
+// $14 终极复制
+program
+  .command('copy <word> <opt>')
+  .description(lang.copy as string)
+  .option('-bn, --bynumber', 'copy by number')
+  .option('-be, --byexpre', 'copy by expression')
+  .action((word: string, opt: string, cmd: CMD) => {
+    verifyArgs('copy', 2);
+    copyUltimate(word, opt, cmd);
+  });
+
+// $15 选择中英文
+program
+  .command('language')
+  .description(lang.languageChange as string)
+  .action(() => {
+    languageChange();
   });
 
 program.parse(process.argv);

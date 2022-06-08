@@ -1,17 +1,29 @@
-import { copyToClipboard } from './config';
+// https://github.com/xavi-/node-copy-paste/blob/master/index.js
+// 如果未安装 xclip，则无法在 Linux 上运行
+// 具体复制问题参考https://github.com/xavi-/node-copy-paste/issues
+import ncp from 'copy-paste';
+import lang from '../../lang';
+import { consoleSuccess } from '../../lib/utils';
 import { splitTrim, isPositiveNumber } from '../../lib/utils';
 
+export const copyToClipboard = (text: string, successText: string = '') => {
+  ncp.copy(text, () => {
+    consoleSuccess(successText || (lang.copySuccess as string));
+  });
+};
+
 // 校验 an + b | an的格式
-const validN = (str: string) => /(^[1-9]\d*(n)(\+[1-9]\d*)?$)/.test(str);
+export const validN = (str: string) => /(^[1-9]\d*(n)(\+[1-9]\d*)?$)/.test(str);
 
 // 二维数组横纵坐标转换
-const reversalDoubleArray = (arr: (number | string)[][]) => {
+export const reversalDoubleArray = (arr: (number | string)[][]) => {
   let maxLenIndex: number = 0;
 
   arr.reduce((pre, now, i) => (now.length > pre.length ? ((maxLenIndex = i), now) : pre), []);
 
-  return arr[0].map((col, i) => arr.map(row => row[i]));
+  return arr[maxLenIndex].map((col, i) => arr.map(row => row[i]));
 };
+
 const getExpresNumNext = (exp: string): number => {
   if (exp.includes('+')) {
     return +exp.split('+')[1];
@@ -24,10 +36,10 @@ const getExpresNumNext = (exp: string): number => {
 
 export const validArgu = (type: string, args: string[]): boolean => {
   switch (type) {
-    case 'num':
+    case 'bynumber':
       return args.every(arg => isPositiveNumber(arg));
       break;
-    case 'expression':
+    case 'byexpre':
       return args.every(arg => validN(arg));
       break;
     default:
@@ -40,17 +52,17 @@ export const validArgu = (type: string, args: string[]): boolean => {
 export const copyByNum = (text: string, nums: number[], logTable: boolean = false) => {
   const texts: string[] = splitTrim(text);
   const copyTexts: string[] = nums.map(i => texts[i - 1]);
-  copyToClipboard(copyTexts.join(` `));
+  copyToClipboard(copyTexts.join(` `), lang.successSelectCopy as string);
+  consoleSuccess(copyTexts.join('  '));
   logTable && console.table(copyTexts);
 };
 
 // 表达式复制
-export const copyByExpre = (text: string, expres: string[], logTable: boolean = false) => {
+export const copyByExpre = (text: string, expres: string[], logTable: boolean = true) => {
   const texts = splitTrim(text);
   const expresNumArr = expres.map(exp => [+exp.split('n')[0], getExpresNumNext(exp)]);
-  console.log(expresNumArr);
   const tempArr: string[][] = [];
-  
+
   expresNumArr.forEach(([prep, remainder], i) => {
     tempArr[i] = [];
     texts.forEach((text, index) => {
@@ -61,30 +73,8 @@ export const copyByExpre = (text: string, expres: string[], logTable: boolean = 
   });
 
   const resultArr = reversalDoubleArray(tempArr);
-
-  console.log(resultArr);
   const copyTexts = resultArr.map(res => res.join(' ----> ')).join(`
 `);
-  copyToClipboard(copyTexts);
-  console.table(resultArr);
+  copyToClipboard(copyTexts, lang.successSelectCopy as string);
+  logTable && console.table(resultArr);
 };
-
-copyByExpre(
-  `store_id	integer	
-必须
-门店id	
-bank_name	string	
-必须
-银行名称	
-id	integer	
-必须 名称
-account_name	string	
-必须
-账户名	
-account_number	string	
-必须
-账号	12312`,
-  ['4n+1']
-);
-
-//

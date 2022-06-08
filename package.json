@@ -4,6 +4,7 @@
   "description": "a command for node",
   "main": "sr/cindex.js",
   "scripts": {
+    "postinstall": "node ./postinstall.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "dev-n": "ts-node-dev src/index.ts",
     "rm-dist": "rimraf dist/*",
