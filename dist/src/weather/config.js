@@ -34,7 +34,15 @@ var getWeatherAPI = function (type, city) {
     return "https://restapi.amap.com/v3/weather/weatherInfo?key=".concat('4e40543244f03b9a58ca5c4f0f73d455', "&extensions=").concat(type, "&output=JSON&city=").concat(city);
 };
 exports.getWeatherAPI = getWeatherAPI;
+var DAY;
+(function (DAY) {
+    DAY[DAY["today"] = 0] = "today";
+    DAY[DAY["tomorrow"] = 1] = "tomorrow";
+    DAY[DAY["afterTomorrow"] = 2] = "afterTomorrow";
+    DAY[DAY["threeDaysFromNow"] = 3] = "threeDaysFromNow";
+})(DAY || (DAY = {}));
 var printWeather = function (type, res) {
+    var _a;
     // 当前实时天气
     if (type === 'base') {
         var now = res.lives[0];
@@ -44,18 +52,17 @@ var printWeather = function (type, res) {
     }
     // 今日和未来天气;
     var forecasts = res.forecasts;
-    var _a = forecasts[0], reporttime = _a.reporttime, city = _a.city, casts = _a.casts;
-    var nameMap = {
-        '0': lang_1.default.today,
-        '1': lang_1.default.tomorrow,
-        '2': lang_1.default.afterTomorrow,
-        '3': lang_1.default.threeDaysFromNow,
-    };
+    var _b = forecasts[0], reporttime = _b.reporttime, city = _b.city, casts = _b.casts;
+    var nameMap = (_a = {},
+        _a[DAY.today] = lang_1.default.today,
+        _a[DAY.tomorrow] = lang_1.default.tomorrow,
+        _a[DAY.afterTomorrow] = lang_1.default.afterTomorrow,
+        _a[DAY.threeDaysFromNow] = lang_1.default.threeDaysFromNow,
+        _a);
     var showstr = casts
         .map(function (cast, index) {
         var dayweather = cast.dayweather, nightweather = cast.nightweather, daytemp = cast.daytemp, nighttemp = cast.nighttemp, daywind = cast.daywind, nightwind = cast.nightwind, daypower = cast.daypower, nightpower = cast.nightpower;
-        // @ts-ignore
-        var name = nameMap["".concat(index)];
+        var name = nameMap[index];
         var detail = lang_1.langFormatData.showFeatureWeathre(dayweather, nightweather, daytemp, nighttemp, daywind, nightwind, daypower, nightpower);
         return "\n".concat(chalk_1.default.red(name), "\n").concat(detail, "\n    ");
     })

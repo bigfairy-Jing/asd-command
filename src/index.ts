@@ -29,7 +29,7 @@ program
   .command('translate <word>')
   .description(lang.translate)
   .action(async (val: string) => {
-    verifyArgs('fy');
+    verifyArgs('translate');
     const translate = await import('./translate');
     translate.default(val);
   });

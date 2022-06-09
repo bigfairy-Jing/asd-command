@@ -3872,7 +3872,3 @@ export const moneysCurrencyArr: MoneyItem[] = [
 ];
 
 export const ExchangeRateKey: string = 'bd5c6b2cfc5c62aff4faf9c6';
-
-
-
-

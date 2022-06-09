@@ -57,7 +57,7 @@ exports.default = (function (text) { return __awaiter(void 0, void 0, void 0, fu
             case 0:
                 useChinese = (0, utils_1.splitTrim)(text).some(function (txt) { return (0, is_chinese_1.default)(txt); });
                 word = useChinese ? text : (0, no_case_1.noCase)(text);
-                spinner_1.default.log(lang_1.default.translating);
+                spinner_1.default.log("\uD83D\uDE97".concat(lang_1.default.translating));
                 return [4 /*yield*/, fetch_1.default.get("".concat((0, config_1.default)(useChinese)).concat((0, urlencode_1.default)(word)))];
             case 1:
                 _a = _b.sent(), code = _a.code, res = _a.res, error = _a.error;

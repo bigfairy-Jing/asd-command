@@ -6,7 +6,15 @@ export const getWeatherAPI = (type: string, city: string): string => {
   return `https://restapi.amap.com/v3/weather/weatherInfo?key=${'4e40543244f03b9a58ca5c4f0f73d455'}&extensions=${type}&output=JSON&city=${city}`;
 };
 
-type WeathreRes = {
+enum DAY {
+  today,
+  tomorrow,
+  afterTomorrow,
+  threeDaysFromNow,
+}
+
+export type WeathreRes = {
+  status: string;
   lives: {
     city: string;
     weather: string;
@@ -56,13 +64,13 @@ export const printWeather = (type: string, res: WeathreRes): void => {
   const { forecasts } = res;
   const { reporttime, city, casts } = forecasts[0];
   const nameMap = {
-    '0': lang.today,
-    '1': lang.tomorrow,
-    '2': lang.afterTomorrow,
-    '3': lang.threeDaysFromNow,
+    [DAY.today]: lang.today,
+    [DAY.tomorrow]: lang.tomorrow,
+    [DAY.afterTomorrow]: lang.afterTomorrow,
+    [DAY.threeDaysFromNow]: lang.threeDaysFromNow,
   };
   const showstr = casts
-    .map((cast, index) => {
+    .map((cast, index: number) => {
       const {
         dayweather,
         nightweather,
@@ -73,8 +81,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
         daypower,
         nightpower,
       } = cast;
-      // @ts-ignore
-      const name = nameMap[`${index}`];
+      const name = nameMap[index as DAY];
       const detail = langFormatData.showFeatureWeathre(
         dayweather,
         nightweather,
@@ -86,7 +93,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
         nightpower
       );
       return `
-${chalk.red(name as string)}
+${chalk.red(name)}
 ${detail}
     `;
     })

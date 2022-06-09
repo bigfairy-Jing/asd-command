@@ -2,7 +2,7 @@ import GotFetch from '../../lib/fetch';
 import chalk from 'chalk';
 import spinner from '../../lib/spinner';
 import lang from '../../lang';
-import { getWeatherAPI, printWeather } from './config';
+import { getWeatherAPI, printWeather, WeathreRes } from './config';
 import weatherCodeList from './data';
 
 export type weatherOpt = {
@@ -25,14 +25,13 @@ export default async (text: string | undefined, opt: weatherOpt) => {
 
   spinner.log(lang.weathering);
   const { code, res, error } = await GotFetch.get(`${getWeatherAPI(type, cityCode)}`, true);
-  // @ts-ignore
-  if (code !== 0 || (res.status as number) !== '1') {
+
+  if (code !== 0 || (res as WeathreRes).status !== '1') {
     spinner.stop();
     console.log(`${chalk.red(error)}`);
     return;
   }
 
   spinner.stop();
-  // @ts-ignore
-  printWeather(type, res);
+  printWeather(type, res as WeathreRes);
 };

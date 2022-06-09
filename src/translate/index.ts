@@ -16,7 +16,7 @@ export default async (text: string) => {
 
   const word = useChinese ? text : noCase(text);
 
-  spinner.log(lang.translating);
+  spinner.log(`🚗${lang.translating}`);
 
   const { code, res, error } = await GotFetch.get(
     `${getTranslateUrl(useChinese)}${urlencode(word)}`

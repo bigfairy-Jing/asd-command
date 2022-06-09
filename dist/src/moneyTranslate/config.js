@@ -95,13 +95,13 @@ var getRequestMoneyUrl = function (currencyCode) {
 };
 exports.getRequestMoneyUrl = getRequestMoneyUrl;
 var requestMoneyExchange = function (currencyCode, toCode) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, code, res, result, time_last_update_unix, conversion_rates, errorType;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var _a, code, res, _b, result, time_last_update_unix, conversion_rates, errorType;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0: return [4 /*yield*/, fetch_1.default.get((0, exports.getRequestMoneyUrl)(currencyCode), true)];
             case 1:
-                _a = _b.sent(), code = _a.code, res = _a.res;
-                result = res.result, time_last_update_unix = res.time_last_update_unix, conversion_rates = res.conversion_rates, errorType = res["error-type"];
+                _a = _c.sent(), code = _a.code, res = _a.res;
+                _b = res, result = _b.result, time_last_update_unix = _b.time_last_update_unix, conversion_rates = _b.conversion_rates, errorType = _b["error-type"];
                 if (code !== 0 || result !== 'success') {
                     console.error(errorType || '获取转换汇率失败！');
                     return [2 /*return*/, {

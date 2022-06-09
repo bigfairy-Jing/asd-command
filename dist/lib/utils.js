@@ -22,7 +22,7 @@ var consoleErr = function (str) {
 };
 exports.consoleErr = consoleErr;
 var consoleSuccess = function (str) {
-    console.log("\uD83C\uDF89 \n    ".concat(str));
+    console.log("\uD83C\uDF89  ".concat(str));
 };
 exports.consoleSuccess = consoleSuccess;
 var PathTypeEnum;

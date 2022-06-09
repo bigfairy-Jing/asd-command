@@ -17,12 +17,6 @@ type Body = {
   [key: string]: unknown;
 };
 
-type Res = {
-  [key: string]: unknown;
-  body: {
-    [key: string]: unknown;
-  };
-};
 export default class GotFetch {
   static initOptions(options = {}, method: HttpMethod, headers = {}) {
     return {

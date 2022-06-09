@@ -9,6 +9,15 @@ type CodeType = 'country' | 'currency';
 
 type PrefixUintKey = 'currency_en' | 'currency_cn';
 
+type FetchMoneyRes = {
+  result: string;
+  time_last_update_unix: number;
+  conversion_rates: {
+    [key: string]: number;
+  };
+  ['error-type']: string;
+};
+
 export const getShowArr = (type: CodeType) =>
   type === 'country' ? moneysCountryArr : moneysCurrencyArr;
 
@@ -36,8 +45,12 @@ export const requestMoneyExchange = async (
   toCode: string
 ): Promise<{ success: boolean; rate?: number; update?: string }> => {
   const { code, res } = await GotFetch.get(getRequestMoneyUrl(currencyCode), true);
-  // @ts-ignore
-  const { result, time_last_update_unix, conversion_rates, 'error-type': errorType } = res;
+  const {
+    result,
+    time_last_update_unix,
+    conversion_rates,
+    'error-type': errorType,
+  } = res as FetchMoneyRes;
   if (code !== 0 || result !== 'success') {
     console.error(errorType || '获取转换汇率失败！');
     return {
@@ -46,8 +59,8 @@ export const requestMoneyExchange = async (
   }
   return {
     success: true,
-    rate: conversion_rates[toCode] as number,
-    update: dayjs.unix(time_last_update_unix as number).format('YYYY-MM-DD HH:mm:ss'),
+    rate: conversion_rates[toCode],
+    update: dayjs.unix(time_last_update_unix).format('YYYY-MM-DD HH:mm:ss'),
   };
 };
 

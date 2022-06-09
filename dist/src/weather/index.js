@@ -65,14 +65,12 @@ exports.default = (function (text, opt) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, fetch_1.default.get("".concat((0, config_1.getWeatherAPI)(type, cityCode)), true)];
             case 1:
                 _a = _b.sent(), code = _a.code, res = _a.res, error = _a.error;
-                // @ts-ignore
                 if (code !== 0 || res.status !== '1') {
                     spinner_1.default.stop();
                     console.log("".concat(chalk_1.default.red(error)));
                     return [2 /*return*/];
                 }
                 spinner_1.default.stop();
-                // @ts-ignore
                 (0, config_1.printWeather)(type, res);
                 return [2 /*return*/];
         }

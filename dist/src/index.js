@@ -101,7 +101,7 @@ program
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                (0, utils_1.verifyArgs)('fy');
+                (0, utils_1.verifyArgs)('translate');
                 return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require('./translate')); })];
             case 1:
                 translate = _a.sent();
