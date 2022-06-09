@@ -24,8 +24,8 @@ $ asd  money [options] [translateStr]
 ### 示例
 
 ##### 通过国家选择
-![1](/money1.gif)
+![1](/asd-command/money1.gif)
 
 ##### 通过货币码-连接转换
-![2](/money2.gif)
+![2](/asd-command/money2.gif)
 

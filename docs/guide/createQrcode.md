@@ -6,4 +6,4 @@ $ asd qrcode <link>
 
 #### 示例
 
-![1](/qrcode1.gif)
+![1](/asd-command/qrcode1.gif)

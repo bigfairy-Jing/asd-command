@@ -18,4 +18,4 @@ $ asd imgtl [options] <imgStr>
 
 #### 示例
 
-![1](/imgtl1.gif)
+![1](/asd-command/imgtl1.gif)

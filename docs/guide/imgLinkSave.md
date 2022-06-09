@@ -8,4 +8,4 @@ $ asd imgsave <imgLink>
 
 #### 示例
 
-![1](/imgsave1.gif)
+![1](/asd-command/imgsave1.gif)

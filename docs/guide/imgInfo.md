@@ -19,8 +19,8 @@ $ asd imginfo [options] <imgPath>
 #### 示例
 
 ##### 获取本地图片信息
-![1](/imginfo.gif)
+![1](/asd-command/imginfo.gif)
 
 ##### 获取网络图片信息
 
-![2](/imginfo2.gif)
+![2](/asd-command/imginfo2.gif)

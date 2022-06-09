@@ -9,7 +9,7 @@ $ asd select <word>
 #### 示例
 
 ##### 随机选择单个
-![1](/select1.gif)
+![1](/asd-command/select1.gif)
 
 #### 多次随机选择
-![2](/select2.gif)
+![2](/asd-command/select2.gif)

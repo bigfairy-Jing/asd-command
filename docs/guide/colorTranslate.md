@@ -8,7 +8,7 @@ $ asd cc <color>
 
 ##### 示例
 
-![1](/cc1.gif)
+![1](/asd-command/cc1.gif)
 
 
-![2](/cc2.gif)
+![2](/asd-command/cc2.gif)

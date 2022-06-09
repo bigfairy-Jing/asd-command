@@ -30,5 +30,5 @@ $ node --version
 
 ## 总览
 
-![总览](/all-info.png)
+![总览](/asd-command/all-info.png)
 

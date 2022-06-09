@@ -15,10 +15,10 @@ $ asd translate <word>
 #### 示例
 
 ##### 中译英
-![fy1](/fy1.gif)
+![fy1](/asd-command/fy1.gif)
 
 ##### 英译中
-![fy2](/fy2.gif)
+![fy2](/asd-command/fy2.gif)
 
 ##### 声明
 * 该功能参考 [https://github.com/kenshinji/yddict](https://github.com/kenshinji/yddict),以及复用parser.js 代码,后期会逐步优化

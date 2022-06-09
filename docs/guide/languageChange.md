@@ -16,4 +16,4 @@ $ asd lang [options]
 
 #### 示例
 
-![1](/lang1.gif)
+![1](/asd-command/lang1.gif)

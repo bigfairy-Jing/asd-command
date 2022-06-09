@@ -19,7 +19,7 @@ $ asd copy <word> <opt>
 #### 示例
 
 ##### 数字选择复制
-![1](/copy1.gif)
+![1](/asd-command/copy1.gif)
 
 ##### 表达式选择复制
-![2](/copy2.gif)
+![2](/asd-command/copy2.gif)

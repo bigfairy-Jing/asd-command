@@ -27,13 +27,13 @@ __code 为高德天气地区 [城市编码](https://lbs.amap.com/api/webservice/
 ### 示例
 
 ##### 查询 [今天，明天，后天，大后天] 天气
-![tq1](/tq1.gif)
+![tq1](/asd-command/tq1.gif)
 
 ##### 查询实时天气
-![tq2](/tq2.gif)
+![tq2](/asd-command/tq2.gif)
 
 ##### 搜索天气 code码
-![tq3](/tq3.gif)
+![tq3](/asd-command/tq3.gif)
 
 ##### 通过天气code码设置系统天气
-![tq4](/tq4.gif)
+![tq4](/asd-command/tq4.gif)
