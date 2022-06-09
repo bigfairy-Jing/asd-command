@@ -9,7 +9,7 @@ export default (copyStr: string, opt: string, cmd: CMD) => {
   const opts = splitTrim(opt);
 
   if (length !== 1) {
-    console.error(lang.optionError);
+    consoleErr(lang.optionError);
     return;
   }
 

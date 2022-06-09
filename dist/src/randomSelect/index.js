@@ -7,9 +7,11 @@ var chalk_1 = __importDefault(require("chalk"));
 exports.default = (function (text) {
     var formatStr = text;
     var randomNum = 1;
-    if (text.indexOf('[') !== -1 && text.indexOf(']') !== -1) {
-        var reg = /\[(.+?)\]/g;
-        formatStr = text.match(reg).toString().slice(1, -1);
+    var reg = /\[(.+?)\]/g;
+    var matchs = text.match(reg);
+    // 存在中括号的情况 例如  18 [吃饭 不吃饭]
+    if (matchs.length) {
+        formatStr = matchs.toString().slice(1, -1);
         randomNum = Number.isInteger(+text.split(/\s+/)[0]) ? +text.split(/\s+/)[0] : 1;
     }
     var randomArr = formatStr.split(/\s+/);

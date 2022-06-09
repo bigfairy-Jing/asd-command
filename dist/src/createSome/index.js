@@ -4,17 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var lang_1 = __importDefault(require("../../lang"));
+var utils_1 = require("../../lib/utils");
 var format_1 = require("./format");
-// eslint-disable-next-line @typescript-eslint/ban-types
 exports.default = (function (val, cmd) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     var keys = Object.keys(cmd);
     var length = keys.length;
     if (length > 1) {
-        console.error(lang_1.default.optionError);
+        (0, utils_1.consoleErr)(lang_1.default.optionError);
         return;
     }
-    var key = length === 1 ? keys[0] : '';
+    var key = keys[0] || '';
     switch (key) {
         case 'random':
             (0, format_1.getRandomNum)(val);
@@ -30,7 +29,6 @@ exports.default = (function (val, cmd) {
             break;
         case 'randomphone':
             (0, format_1.getRandomPhone)();
-            break;
             break;
         case 'randomhue':
             (0, format_1.getRandomHue)();

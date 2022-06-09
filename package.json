@@ -1,11 +1,12 @@
 {
-  "name": "asd",
-  "version": "0.1.0",
+  "name": "asd-command",
+  "version": "0.1.1",
   "description": "a command for node",
-  "main": "sr/cindex.js",
+  "main": "src/index.js",
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "deploy": "gh-pages -d docs/dist",
     "postinstall": "node ./postinstall.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "dev-n": "ts-node-dev src/index.ts",
@@ -20,7 +21,6 @@
     "asd": "dist/src/index.js"
   },
   "nodeVersion": ">=9.0",
-  "private": true,
   "author": "HZ",
   "license": "MIT",
   "devDependencies": {
@@ -50,6 +50,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.2.0",
+    "gh-pages": "^4.0.0",
     "mddir": "^1.1.1",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
@@ -91,5 +92,6 @@
     "shelljs": "^0.8.5",
     "tinify": "^1.6.1",
     "ts-node": "^10.7.0"
-  }
+  },
+  "city": "110100"
 }

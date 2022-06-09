@@ -15,8 +15,8 @@ export const getImageInforPath = (str: string) => {
     const stats = fs.statSync(str);
     const size = stats.size;
     const KBSize = `${sizeTranslte(size, 'ByteToKB')}KB`;
-    const MBSize = `${sizeTranslte(size, 'ByteToMB')}MB`;
-    const sizeInfo = `${KBSize}(${MBSize})`;
+    const MBSize = sizeTranslte(size, 'ByteToMB');
+    const sizeInfo = `${KBSize}${+MBSize > 0 ? `(${MBSize}MB)` : ''}`;
     const dimensions = imgSize(str);
     const { width, height, type } = dimensions;
     consoleSuccess(langFormatData.getShowImgInfo(sizeInfo, width, height, type));
@@ -38,8 +38,8 @@ export const getImageInforLink = async (url: string) => {
   }
   const size: number = res.rawBody.length;
   const KBSize = `${sizeTranslte(size, 'ByteToKB')}KB`;
-  const MBSize = `${sizeTranslte(size, 'ByteToMB')}MB`;
-  const sizeInfo = `${KBSize}(${MBSize})`;
+  const MBSize = sizeTranslte(size, 'ByteToMB');
+  const sizeInfo = `${KBSize}${+MBSize > 0 ? `(${MBSize}MB)` : ''}`;
   const dimensions = imgSize(Buffer.from(res.rawBody));
   const { width, height, type } = dimensions;
   consoleSuccess(langFormatData.getShowImgInfo(sizeInfo, width, height, type));

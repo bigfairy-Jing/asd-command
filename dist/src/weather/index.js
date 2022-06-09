@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,26 +64,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fetch_1 = __importDefault(require("../../lib/fetch"));
 var chalk_1 = __importDefault(require("chalk"));
+var fs_1 = __importDefault(require("fs"));
 var spinner_1 = __importDefault(require("../../lib/spinner"));
-var lang_1 = __importDefault(require("../../lang"));
+var lang_1 = __importStar(require("../../lang"));
 var config_1 = require("./config");
 var data_1 = __importDefault(require("./data"));
-exports.default = (function (text, opt) { return __awaiter(void 0, void 0, void 0, function () {
-    var keys, type, cityCode, _a, code, res, error;
+var utils_1 = require("../../lib/utils");
+var package_json_1 = __importDefault(require("../../package.json"));
+var _packgeJson = JSON.parse(JSON.stringify(package_json_1.default));
+var tempCityCode = _packgeJson.city || '110100';
+var writeCode = function (item) {
+    var code = item.code, address = item.address;
+    _packgeJson.city = code;
+    var str = JSON.stringify(_packgeJson);
+    try {
+        fs_1.default.writeFileSync('./dist/package.json', str);
+        (0, utils_1.consoleSuccess)(lang_1.langFormatData.getEditWeatherCodeSuccess(address));
+    }
+    catch (error) {
+        console.log(error);
+    }
+};
+var getWeather = function (inputCityCode, type) { return __awaiter(void 0, void 0, void 0, function () {
+    var cityCode, _a, code, res, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                keys = Object.keys(opt);
-                type = 'all';
-                if (keys.length > 0 && opt["".concat(keys[0])] === true) {
-                    if (['fc', 'findcode'].includes(keys[0])) {
-                        console.table(data_1.default.filter(function (item) { return item.address.includes(text); }));
-                        return [2 /*return*/];
-                    }
-                    if (['b', 'base'].includes(keys[0]))
-                        type = 'base';
+                cityCode = inputCityCode || tempCityCode;
+                if (!data_1.default.find(function (item) { return item.code === cityCode; })) {
+                    (0, utils_1.consoleErr)(lang_1.default.weatherCodeNotFind);
+                    return [2 /*return*/];
                 }
-                cityCode = text || '440306';
                 spinner_1.default.log(lang_1.default.weathering);
                 return [4 /*yield*/, fetch_1.default.get("".concat((0, config_1.getWeatherAPI)(type, cityCode)), true)];
             case 1:
@@ -74,6 +108,37 @@ exports.default = (function (text, opt) { return __awaiter(void 0, void 0, void 
                 (0, config_1.printWeather)(type, res);
                 return [2 /*return*/];
         }
+    });
+}); };
+exports.default = (function (inputCityCode, opt) { return __awaiter(void 0, void 0, void 0, function () {
+    var keys, length, type, findList, findItem;
+    return __generator(this, function (_a) {
+        keys = Object.keys(opt);
+        length = keys.length;
+        if (length > 1) {
+            (0, utils_1.consoleErr)(lang_1.default.optionError);
+            return [2 /*return*/];
+        }
+        type = keys[0] ? keys[0] : 'all';
+        // 寻找code码 findcode
+        if (type === 'findcode') {
+            findList = data_1.default.filter(function (item) { return item.address.includes(inputCityCode); });
+            findList.length > 0 ? console.table(findList) : (0, utils_1.consoleErr)(lang_1.default.weatherCodeNotFind);
+            return [2 /*return*/];
+        }
+        // 设置本机地区 setsystem
+        if (type === 'setsystem') {
+            findItem = data_1.default.find(function (item) { return item.code === inputCityCode; });
+            if (!findItem) {
+                (0, utils_1.consoleErr)(lang_1.default.weatherCodeNotFind);
+                return [2 /*return*/];
+            }
+            writeCode(findItem);
+            return [2 /*return*/];
+        }
+        // 查询天气 base | all
+        getWeather(inputCityCode, type);
+        return [2 /*return*/];
     });
 }); });
 //# sourceMappingURL=index.js.map

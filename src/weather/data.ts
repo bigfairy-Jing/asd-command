@@ -1,4 +1,9 @@
-export default [
+export type WItem = {
+  address: string;
+  code: string;
+};
+
+const weatherList: WItem[] = [
   {
     address: '中华人民共和国',
     code: '100000',
@@ -14100,3 +14105,5 @@ export default [
     code: '900000',
   },
 ];
+
+export default weatherList;

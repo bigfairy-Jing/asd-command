@@ -67,7 +67,6 @@ exports.default = (function (text) { return __awaiter(void 0, void 0, void 0, fu
                     return [2 /*return*/];
                 }
                 spinner_1.default.success('翻译完成');
-                // @ts-ignore
                 console.log((0, parser_1.default)(useChinese, res.body));
                 return [2 /*return*/];
         }

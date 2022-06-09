@@ -16,6 +16,8 @@ var LangType;
 exports.langList = [{ name: '简体中文' }, { name: 'English' }];
 exports.langData = {
     cn: {
+        creating: '生成中',
+        createSuccess: '生成成功',
         languageChange: '语言切换',
         successDL: "\u606D\u559C\u60A8\uFF01".concat(package_json_1.name, " V").concat(package_json_1.version, " \u4E0B\u8F7D\u6210\u529F!"),
         // 翻译
@@ -55,7 +57,7 @@ exports.langData = {
         imgSave: '图片链接保存本地',
         linkToqrCodeTo: '链接保存为二维码',
         imgCompress: '图片压缩',
-        imgCompression: '图片压缩中',
+        imgCompression: '🚗图片压缩中',
         imgFileIputErr: '文件传入类型错误,为非图片类型',
         imgInputPathErr: '输入路径有误，非图片类型或包含图片文件夹',
         imgCompressSuccess: '图片压缩成功',
@@ -77,8 +79,14 @@ exports.langData = {
         threeDaysFromNow: '大后天',
         languageChangeSuccess: '切换语言成功',
         showSelectLanguage: '您当前选择的语言是简体中文',
+        weatherCodeNotFind: '天气code码未查询到',
+        moneyExchangeGetting: '汇率查询中...',
+        moneyExchangeGetSuccess: '汇率查询成功...',
+        moneyExchangeGetError: '汇率查询失败...',
     },
     en: {
+        creating: 'In production',
+        createSuccess: 'create success',
         languageChange: 'Language switching',
         successDL: "congratulations! ".concat(package_json_1.name, " V").concat(package_json_1.version, " download successfully!"),
         translate: 'Chinese<>English translate',
@@ -117,7 +125,7 @@ exports.langData = {
         imgSave: 'Picture links saved locally',
         linkToqrCodeTo: 'Save Link as QR code',
         imgCompress: 'Picture compression',
-        imgCompression: 'The picture is being compressed',
+        imgCompression: '🚗The picture is being compressed',
         imgFileIputErr: 'File incoming type error, non picture type',
         imgInputPathErr: 'The input path is incorrect. It is not a picture type or contains a picture folder',
         imgCompressSuccess: 'Picture compression succeeded',
@@ -139,6 +147,10 @@ exports.langData = {
         threeDaysFromNow: 'three days from now',
         languageChangeSuccess: 'Switching language succeeded',
         showSelectLanguage: 'The language you currently select is English',
+        weatherCodeNotFind: 'The weather code was not found',
+        moneyExchangeGetting: 'Exchange rate inquiry',
+        moneyExchangeGetSuccess: 'Exchange rate query successful',
+        moneyExchangeGetError: 'Exchange rate query failed',
     },
 };
 exports.langFormat = {
@@ -167,6 +179,9 @@ exports.langFormat = {
         getShowImgInfo: function (imgSize, width, height, type) {
             return "\n        \u56FE\u7247\u5927\u5C0F: ".concat(imgSize, "\n        \u56FE\u7247\u5BBD: ").concat(width, "\u50CF\u7D20\n        \u56FE\u7247\u9AD8: ").concat(height, "\u50CF\u7D20\n        \u56FE\u7247\u7C7B\u578B: ").concat(type, "\n      ");
         },
+        getEditWeatherCodeSuccess: function (address) {
+            return "\u7CFB\u7EDF\u8BBE\u7F6E\u5730\u5740\u4E3A ".concat(address, " \u6210\u529F!");
+        },
     },
     en: {
         vaildVersion: function (name, nodeVersion) {
@@ -192,6 +207,9 @@ exports.langFormat = {
         },
         getShowImgInfo: function (imgSize, width, height, type) {
             return "\n        Picture size: ".concat(imgSize, "\n        Picture width: ").concat(width, "pixel\n        Picture height: ").concat(height, "pixel\n        Picture type: ").concat(type, "\n      ");
+        },
+        getEditWeatherCodeSuccess: function (address) {
+            return "System address set ".concat(address, " successfully");
         },
     },
 };

@@ -3,7 +3,7 @@ import packageJson from '../../package.json';
 import fs from 'fs';
 import { CMD } from '../../lib/commonType';
 import lang, { langList, langData, LangType } from '../../lang';
-import { consoleSuccess } from '../../lib/utils';
+import { consoleErr, consoleSuccess } from '../../lib/utils';
 
 const _packgeJson = JSON.parse(JSON.stringify(packageJson));
 
@@ -44,7 +44,7 @@ const selectLang = async () => {
 };
 
 const showLangList = () => {
-  consoleSuccess(langList.map(x => x.name).join(`\n`));
+  consoleSuccess(`\n${langList.map(x => x.name).join(`\n`)}`);
 };
 
 export default (cmd: CMD) => {
@@ -58,7 +58,7 @@ export default (cmd: CMD) => {
   }
 
   if (length !== 1) {
-    console.error(lang.optionError);
+    consoleErr(lang.optionError);
     return;
   }
 

@@ -61,11 +61,11 @@ var getTimeStamp = function (val) {
 };
 exports.getTimeStamp = getTimeStamp;
 var getRandomLetter = function (val) {
-    if (!/(^[1-9]\d*$)/.test(val)) {
+    if (!!val && !/(^[1-9]\d*$)/.test(val)) {
         console.error(lang_1.default.inputNeedNumber);
         return;
     }
-    var len = +val;
+    var len = +val || 10;
     var res = new Array(len)
         .fill('')
         .map(function () {
@@ -93,7 +93,9 @@ var getRandomHue = function () {
         str += config_1.sixteen[parseInt("".concat(Math.random() * 16))];
     }
     (0, colorTranslate_1.default)(str);
-    console.log(chalk_1.default.green("#".concat(str)));
+    var hex = chalk_1.default.hex(str);
+    console.log("#".concat(str));
+    console.log(hex("#".concat(str)));
 };
 exports.getRandomHue = getRandomHue;
 //# sourceMappingURL=format.js.map

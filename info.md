@@ -15,11 +15,9 @@
 
 7. Inquirer 通用交互式命令行用户界面的集合
 
-8. ShellJS：Node.js 版本的可移植 Unix Shell 命令行工具
+8. ora 主要用来实现node.js命令行环境的loading效果，和显示各种状态的图标等
 
-9. ora 主要用来实现node.js命令行环境的loading效果，和显示各种状态的图标等
-
-10. 
+9. 
 
 #### 图片处理 sharp https://www.npmjs.com/package/sharp 
 #### edit desc
@@ -36,8 +34,3 @@
 3. npm link执行输出的截图可以看到，就是进行了一个软链的过程，把当前项目软链到nodejs安装目录的node_modules文件夹下的同名文件夹，然后再软链到nodejs安装目录下的同名可执行文件。
 
 4. 
-
-
-#### 优化代码
-
-1. 支持选择默认的搜索工具

@@ -10,6 +10,10 @@ import getTranslateUrl from './config';
 import parser from './parser';
 import { splitTrim } from '../../lib/utils';
 
+type FetchTranslate = {
+  body: unknown;
+};
+
 export default async (text: string) => {
   // 如果有一个为中文那么就用中文翻译成英文API
   const useChinese: boolean = splitTrim(text).some(txt => isChinese(txt));
@@ -28,6 +32,5 @@ export default async (text: string) => {
   }
 
   spinner.success('翻译完成');
-  // @ts-ignore
-  console.log(parser(useChinese, res.body));
+  console.log(parser(useChinese, (res as FetchTranslate).body));
 };

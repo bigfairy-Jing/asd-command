@@ -1,9 +1,10 @@
 import chalk from 'chalk';
 import lang, { langFormatData } from '../../lang';
 
+const weatherKey = '4e40543244f03b9a58ca5c4f0f73d455';
+
 export const getWeatherAPI = (type: string, city: string): string => {
-  const { WEATHERKEY } = process.env;
-  return `https://restapi.amap.com/v3/weather/weatherInfo?key=${'4e40543244f03b9a58ca5c4f0f73d455'}&extensions=${type}&output=JSON&city=${city}`;
+  return `https://restapi.amap.com/v3/weather/weatherInfo?key=${weatherKey}&extensions=${type}&output=JSON&city=${city}`;
 };
 
 enum DAY {

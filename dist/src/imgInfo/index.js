@@ -78,8 +78,8 @@ var getImageInforPath = function (str) {
         var stats = fs_1.default.statSync(str);
         var size = stats.size;
         var KBSize = "".concat((0, utils_1.sizeTranslte)(size, 'ByteToKB'), "KB");
-        var MBSize = "".concat((0, utils_1.sizeTranslte)(size, 'ByteToMB'), "MB");
-        var sizeInfo = "".concat(KBSize, "(").concat(MBSize, ")");
+        var MBSize = (0, utils_1.sizeTranslte)(size, 'ByteToMB');
+        var sizeInfo = "".concat(KBSize).concat(+MBSize > 0 ? "(".concat(MBSize, "MB)") : '');
         var dimensions = (0, image_size_1.default)(str);
         var width = dimensions.width, height = dimensions.height, type = dimensions.type;
         (0, utils_1.consoleSuccess)(lang_1.langFormatData.getShowImgInfo(sizeInfo, width, height, type));
@@ -102,8 +102,8 @@ var getImageInforLink = function (url) { return __awaiter(void 0, void 0, void 0
                 }
                 size = res.rawBody.length;
                 KBSize = "".concat((0, utils_1.sizeTranslte)(size, 'ByteToKB'), "KB");
-                MBSize = "".concat((0, utils_1.sizeTranslte)(size, 'ByteToMB'), "MB");
-                sizeInfo = "".concat(KBSize, "(").concat(MBSize, ")");
+                MBSize = (0, utils_1.sizeTranslte)(size, 'ByteToMB');
+                sizeInfo = "".concat(KBSize).concat(+MBSize > 0 ? "(".concat(MBSize, "MB)") : '');
                 dimensions = (0, image_size_1.default)(Buffer.from(res.rawBody));
                 width = dimensions.width, height = dimensions.height, type = dimensions.type;
                 (0, utils_1.consoleSuccess)(lang_1.langFormatData.getShowImgInfo(sizeInfo, width, height, type));

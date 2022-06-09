@@ -55,11 +55,11 @@ export const getTimeStamp = (val: dayjs.ConfigType = '') => {
 };
 
 export const getRandomLetter = (val: string) => {
-  if (!/(^[1-9]\d*$)/.test(val)) {
+  if (!!val && !/(^[1-9]\d*$)/.test(val)) {
     console.error(lang.inputNeedNumber);
     return;
   }
-  const len = +val;
+  const len = +val || 10;
   const res = new Array(len)
     .fill('')
     .map(() => {
@@ -87,5 +87,7 @@ export const getRandomHue = () => {
     str += sixteenArr[parseInt(`${Math.random() * 16}`)];
   }
   colorTranslate(str);
-  console.log(chalk.green(`#${str}`));
+  const hex = chalk.hex(str);
+  console.log(`#${str}`);
+  console.log(hex(`#${str}`));
 };

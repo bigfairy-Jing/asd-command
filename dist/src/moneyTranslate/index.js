@@ -5,12 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var lang_1 = __importDefault(require("../../lang"));
+var utils_1 = require("../../lib/utils");
 var config_1 = require("./config");
 exports.default = (function (translateStr, cmd) {
     var keys = Object.keys(cmd);
     var length = keys.length;
     if (length !== 1) {
-        console.error(lang_1.default.optionError);
+        (0, utils_1.consoleErr)(lang_1.default.optionError);
         return;
     }
     var type = keys[0];

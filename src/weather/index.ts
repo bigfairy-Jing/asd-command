@@ -1,27 +1,37 @@
 import GotFetch from '../../lib/fetch';
 import chalk from 'chalk';
+import fs from 'fs';
 import spinner from '../../lib/spinner';
-import lang from '../../lang';
+import lang, { langFormatData } from '../../lang';
 import { getWeatherAPI, printWeather, WeathreRes } from './config';
-import weatherCodeList from './data';
+import weatherCodeList, { WItem } from './data';
+import { consoleErr, consoleSuccess } from '../../lib/utils';
+import { CMD } from '../../lib/commonType';
+import packageJson from '../../package.json';
 
-export type weatherOpt = {
-  [key: string]: string | boolean;
+const _packgeJson = JSON.parse(JSON.stringify(packageJson));
+
+const tempCityCode: string = _packgeJson.city || '110100';
+
+const writeCode = (item: WItem) => {
+  const { code, address } = item;
+  _packgeJson.city = code;
+  const str = JSON.stringify(_packgeJson);
+  try {
+    fs.writeFileSync('./dist/package.json', str);
+    consoleSuccess(langFormatData.getEditWeatherCodeSuccess(address));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export default async (text: string | undefined, opt: weatherOpt) => {
-  const keys: string[] = Object.keys(opt);
-  let type: string = 'all';
+const getWeather = async (inputCityCode: string, type: string) => {
+  const cityCode = inputCityCode || tempCityCode;
 
-  if (keys.length > 0 && opt[`${keys[0]}`] === true) {
-    if (['fc', 'findcode'].includes(keys[0])) {
-      console.table(weatherCodeList.filter(item => item.address.includes(text)));
-      return;
-    }
-    if (['b', 'base'].includes(keys[0])) type = 'base';
+  if (!weatherCodeList.find(item => item.code === cityCode)) {
+    consoleErr(lang.weatherCodeNotFind);
+    return;
   }
-
-  const cityCode = text || '440306';
 
   spinner.log(lang.weathering);
   const { code, res, error } = await GotFetch.get(`${getWeatherAPI(type, cityCode)}`, true);
@@ -34,4 +44,36 @@ export default async (text: string | undefined, opt: weatherOpt) => {
 
   spinner.stop();
   printWeather(type, res as WeathreRes);
+};
+
+export default async (inputCityCode: string | undefined, opt: CMD) => {
+  const keys: string[] = Object.keys(opt);
+  const { length } = keys;
+  if (length > 1) {
+    consoleErr(lang.optionError);
+    return;
+  }
+
+  const type: string = keys[0] ? keys[0] : 'all';
+
+  // 寻找code码 findcode
+  if (type === 'findcode') {
+    const findList = weatherCodeList.filter(item => item.address.includes(inputCityCode));
+    findList.length > 0 ? console.table(findList) : consoleErr(lang.weatherCodeNotFind);
+    return;
+  }
+
+  // 设置本机地区 setsystem
+  if (type === 'setsystem') {
+    const findItem = weatherCodeList.find(item => item.code === inputCityCode);
+    if (!findItem) {
+      consoleErr(lang.weatherCodeNotFind);
+      return;
+    }
+    writeCode(findItem);
+    return;
+  }
+
+  // 查询天气 base | all
+  getWeather(inputCityCode, type);
 };

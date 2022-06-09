@@ -2,6 +2,7 @@
 
 import lang from '../../lang';
 import { CMD } from '../../lib/commonType';
+import { consoleErr } from '../../lib/utils';
 import { showCodeTable, selectByMoney, inputByMoney } from './config';
 
 export default (translateStr: string, cmd: CMD) => {
@@ -9,7 +10,7 @@ export default (translateStr: string, cmd: CMD) => {
   const { length } = keys;
 
   if (length !== 1) {
-    console.error(lang.optionError);
+    consoleErr(lang.optionError);
     return;
   }
   const type = keys[0];

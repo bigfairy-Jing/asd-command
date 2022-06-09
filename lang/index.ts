@@ -40,6 +40,8 @@ export const langList = [{ name: '简体中文' }, { name: 'English' }];
 
 export const langData: LangdData = {
   cn: {
+    creating: '生成中',
+    createSuccess: '生成成功',
     languageChange: '语言切换',
     successDL: `恭喜您！${name} V${version} 下载成功!`,
     // 翻译
@@ -79,7 +81,7 @@ export const langData: LangdData = {
     imgSave: '图片链接保存本地',
     linkToqrCodeTo: '链接保存为二维码',
     imgCompress: '图片压缩',
-    imgCompression: '图片压缩中',
+    imgCompression: '🚗图片压缩中',
     imgFileIputErr: '文件传入类型错误,为非图片类型',
     imgInputPathErr: '输入路径有误，非图片类型或包含图片文件夹',
     imgCompressSuccess: '图片压缩成功',
@@ -102,8 +104,14 @@ export const langData: LangdData = {
     threeDaysFromNow: '大后天',
     languageChangeSuccess: '切换语言成功',
     showSelectLanguage: '您当前选择的语言是简体中文',
+    weatherCodeNotFind: '天气code码未查询到',
+    moneyExchangeGetting: '汇率查询中...',
+    moneyExchangeGetSuccess: '汇率查询成功...',
+    moneyExchangeGetError: '汇率查询失败...',
   },
   en: {
+    creating: 'In production',
+    createSuccess: 'create success',
     languageChange: 'Language switching',
     successDL: `congratulations! ${name} V${version} download successfully!`,
     translate: 'Chinese<>English translate',
@@ -143,7 +151,7 @@ export const langData: LangdData = {
     imgSave: 'Picture links saved locally',
     linkToqrCodeTo: 'Save Link as QR code',
     imgCompress: 'Picture compression',
-    imgCompression: 'The picture is being compressed',
+    imgCompression: '🚗The picture is being compressed',
     imgFileIputErr: 'File incoming type error, non picture type',
     imgInputPathErr:
       'The input path is incorrect. It is not a picture type or contains a picture folder',
@@ -167,6 +175,10 @@ export const langData: LangdData = {
     threeDaysFromNow: 'three days from now',
     languageChangeSuccess: 'Switching language succeeded',
     showSelectLanguage: 'The language you currently select is English',
+    weatherCodeNotFind: 'The weather code was not found',
+    moneyExchangeGetting: 'Exchange rate inquiry',
+    moneyExchangeGetSuccess: 'Exchange rate query successful',
+    moneyExchangeGetError: 'Exchange rate query failed',
   },
 };
 
@@ -233,6 +245,9 @@ export const langFormat: LangFormat = {
         图片类型: ${type}
       `;
     },
+    getEditWeatherCodeSuccess: (address: string): string => {
+      return `系统设置地址为 ${address} 成功!`;
+    },
   },
   en: {
     vaildVersion(name: string, nodeVersion: string): string {
@@ -295,6 +310,9 @@ export const langFormat: LangFormat = {
         Picture height: ${height}pixel
         Picture type: ${type}
       `;
+    },
+    getEditWeatherCodeSuccess: (address: string): string => {
+      return `System address set ${address} successfully`;
     },
   },
 };

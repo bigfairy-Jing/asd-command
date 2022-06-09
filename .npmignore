@@ -1,2 +1,15 @@
-.vscode
-.git
+.DS_Store
+node_modules
+info.md
+
+docs
+.github
+
+static/*
+static2/*
+
+deploy.sh
+
+# ./src
+# ./lib
+# ./lang

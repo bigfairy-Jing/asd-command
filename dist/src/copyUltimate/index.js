@@ -11,7 +11,7 @@ exports.default = (function (copyStr, opt, cmd) {
     var length = keys.length;
     var opts = (0, utils_1.splitTrim)(opt);
     if (length !== 1) {
-        console.error(lang_1.default.optionError);
+        (0, utils_1.consoleErr)(lang_1.default.optionError);
         return;
     }
     if (opts.length === 0) {

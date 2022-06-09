@@ -1,6 +1,6 @@
 module.exports = {
-  // base: '/asd',
-  // dest: 'docs/dist',
+  base: '/asd-command/',
+  dest: 'docs/dist',
   // descrition: '一个致力于沉浸式开发的命令行工具',
   // head: {},
   // themeConfig: {},

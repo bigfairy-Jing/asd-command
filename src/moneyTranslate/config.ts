@@ -3,7 +3,8 @@ import { moneysCountryArr, moneysCurrencyArr, ExchangeRateKey, supportCurrencys 
 import inquirer from 'inquirer';
 import dayjs from 'dayjs';
 import GotFetch from '../../lib/fetch';
-import { mul } from '../../lib/utils';
+import { consoleErr, mul } from '../../lib/utils';
+import spinner from '../../lib/spinner';
 
 type CodeType = 'country' | 'currency';
 
@@ -111,11 +112,13 @@ export const selectByMoney = async (type: CodeType) => {
     ])
     .then(async answers => {
       const { selectFrom, selectTo, inputMoney } = answers;
+      spinner.log(`🚗${lang.moneyExchangeGetting}`);
       const { success, rate, update } = await requestMoneyExchange(
         selectFrom as string,
         selectTo as string
       );
       if (success) {
+        spinner.success(lang.moneyExchangeGetSuccess);
         console.log(
           langFormatData.showMoneyInfo(
             rate,
@@ -126,14 +129,17 @@ export const selectByMoney = async (type: CodeType) => {
         );
       }
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      spinner.fail(lang.moneyExchangeGetError);
+      console.log(err);
+    });
 };
 
 export const inputByMoney = async (dbCode: string) => {
   const codeArr = dbCode.split('-');
 
   if (codeArr.length !== 2) {
-    console.error(lang.optionError2);
+    consoleErr(lang.optionError2);
     return;
   }
 

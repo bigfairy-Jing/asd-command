@@ -36,15 +36,16 @@ program
 
 // $2 天气
 program
-  .command('tq [text]')
+  .command('tq [code]')
   .description(lang.weather)
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
-  .action(async (text: string, opt: CMD) => {
+  .option('-ss --setsystem', 'set system weather code')
+  .action(async (code: string, opt: CMD) => {
     verifyArgs('tq');
     const weather = await import('./weather');
-    weather.default(text, opt);
+    weather.default(code, opt);
   });
 
 program
@@ -53,6 +54,7 @@ program
   .option('-b --base', 'current weather')
   .option('-a --all', 'Weather Forecast')
   .option('-fc --findcode', 'find address code')
+  .option('-ss --setsystem', 'set system weather code')
   .action(async (text: string, opt: CMD) => {
     verifyArgs('tq');
     const weather = await import('./weather');
@@ -76,6 +78,8 @@ program
   .option('-b, --baidu', 'search by baidu')
   .option('-t, --github', 'search by github')
   .option('-g, --google', 'search by google')
+  .option('-j, --juejin', 'search by juejin')
+  .option('-z, --zhihu', 'search by zhihu')
   .option('-a, --all', 'search by all set')
   .description(lang.searchDesc)
   .action(async (val: string, cmd: CMD) => {

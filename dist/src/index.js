@@ -112,12 +112,13 @@ program
 }); });
 // $2 天气
 program
-    .command('tq [text]')
+    .command('tq [code]')
     .description(index_1.default.weather)
     .option('-b --base', 'current weather')
     .option('-a --all', 'Weather Forecast')
     .option('-fc --findcode', 'find address code')
-    .action(function (text, opt) { return __awaiter(void 0, void 0, void 0, function () {
+    .option('-ss --setsystem', 'set system weather code')
+    .action(function (code, opt) { return __awaiter(void 0, void 0, void 0, function () {
     var weather;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -126,7 +127,7 @@ program
                 return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require('./weather')); })];
             case 1:
                 weather = _a.sent();
-                weather.default(text, opt);
+                weather.default(code, opt);
                 return [2 /*return*/];
         }
     });
@@ -137,6 +138,7 @@ program
     .option('-b --base', 'current weather')
     .option('-a --all', 'Weather Forecast')
     .option('-fc --findcode', 'find address code')
+    .option('-ss --setsystem', 'set system weather code')
     .action(function (text, opt) { return __awaiter(void 0, void 0, void 0, function () {
     var weather;
     return __generator(this, function (_a) {
@@ -176,6 +178,8 @@ program
     .option('-b, --baidu', 'search by baidu')
     .option('-t, --github', 'search by github')
     .option('-g, --google', 'search by google')
+    .option('-j, --juejin', 'search by juejin')
+    .option('-z, --zhihu', 'search by zhihu')
     .option('-a, --all', 'search by all set')
     .description(index_1.default.searchDesc)
     .action(function (val, cmd) { return __awaiter(void 0, void 0, void 0, function () {

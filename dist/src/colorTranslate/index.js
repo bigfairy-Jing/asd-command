@@ -9,7 +9,6 @@ var utils_1 = require("../../lib/utils");
 var config_1 = require("./config");
 var validColor = function (colorStr) {
     colorStr = (0, utils_1.splitTrim)(colorStr).join('');
-    console.log(colorStr);
     if (config_1.rgbaReg.test(colorStr)) {
         return 'rgba';
     }
@@ -36,7 +35,10 @@ exports.default = (function (colorStr) {
             a = parseInt(rgbaArr[5]).toString(16);
             a = a.length === 1 ? "0".concat(a) : a;
         }
-        console.log(chalk_1.default.green("#".concat(r).concat(g).concat(b).concat(a)));
+        var resColor = "#".concat(r).concat(g).concat(b).concat(a);
+        console.log(resColor);
+        var hex = chalk_1.default.hex(resColor);
+        console.log(hex(resColor));
     }
     else {
         colorStr = colorStr.includes('#') ? colorStr.substring(1) : colorStr;
@@ -49,8 +51,10 @@ exports.default = (function (colorStr) {
         }
         var res = colorResArr.length === 4
             ? "rgba(".concat(colorResArr[0], ",").concat(colorResArr[1], ",").concat(colorResArr[2], ",").concat(colorResArr[3], ")")
-            : "rgba(".concat(colorResArr[0], ",").concat(colorResArr[1], ",").concat(colorResArr[2], ")");
-        console.log(chalk_1.default.green(res));
+            : "rgb(".concat(colorResArr[0], ",").concat(colorResArr[1], ",").concat(colorResArr[2], ")");
+        console.log(res);
+        var hex = chalk_1.default.hex(colorStr);
+        console.log(hex(res));
     }
 });
 //# sourceMappingURL=index.js.map

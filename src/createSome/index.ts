@@ -1,4 +1,7 @@
 import lang from '../../lang';
+import { CMD } from '../../lib/commonType';
+import spinner from '../../lib/spinner';
+import { consoleErr } from '../../lib/utils';
 
 import {
   getRandomNum,
@@ -9,16 +12,14 @@ import {
   getRandomHue,
 } from './format';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export default (val: string, cmd: {}) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+export default (val: string, cmd: CMD) => {
   const keys = Object.keys(cmd);
   const { length } = keys;
   if (length > 1) {
-    console.error(lang.optionError);
+    consoleErr(lang.optionError);
     return;
   }
-  const key: string = length === 1 ? keys[0] : '';
+  const key: string = keys[0] || '';
   switch (key) {
     case 'random':
       getRandomNum(val);
@@ -34,7 +35,6 @@ export default (val: string, cmd: {}) => {
       break;
     case 'randomphone':
       getRandomPhone();
-      break;
       break;
     case 'randomhue':
       getRandomHue();

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = [
+var weatherList = [
     {
         address: '中华人民共和国',
         code: '100000',
@@ -14102,4 +14102,5 @@ exports.default = [
         code: '900000',
     },
 ];
+exports.default = weatherList;
 //# sourceMappingURL=data.js.map

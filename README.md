@@ -1,9 +1,10 @@
 #### asd-command 一个命令行工具
 
 
+#### docs 
+* https://bigfairy-jing.github.io/asd-command/
 
-
-
+### 系统的node版本需要大于9.0
 
 
 #### 表情符号网站

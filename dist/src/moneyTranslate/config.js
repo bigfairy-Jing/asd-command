@@ -69,6 +69,7 @@ var inquirer_1 = __importDefault(require("inquirer"));
 var dayjs_1 = __importDefault(require("dayjs"));
 var fetch_1 = __importDefault(require("../../lib/fetch"));
 var utils_1 = require("../../lib/utils");
+var spinner_1 = __importDefault(require("../../lib/spinner"));
 var getShowArr = function (type) {
     return type === 'country' ? data_1.moneysCountryArr : data_1.moneysCurrencyArr;
 };
@@ -166,17 +167,22 @@ var selectByMoney = function (type) { return __awaiter(void 0, void 0, void 0, f
                 switch (_b.label) {
                     case 0:
                         selectFrom = answers.selectFrom, selectTo = answers.selectTo, inputMoney = answers.inputMoney;
+                        spinner_1.default.log("\uD83D\uDE97".concat(lang_1.default.moneyExchangeGetting));
                         return [4 /*yield*/, (0, exports.requestMoneyExchange)(selectFrom, selectTo)];
                     case 1:
                         _a = _b.sent(), success = _a.success, rate = _a.rate, update = _a.update;
                         if (success) {
+                            spinner_1.default.success(lang_1.default.moneyExchangeGetSuccess);
                             console.log(lang_1.langFormatData.showMoneyInfo(rate, update, inputMoney, (0, utils_1.mul)(inputMoney, rate)));
                         }
                         return [2 /*return*/];
                 }
             });
         }); })
-            .catch(function (err) { return console.error(err); });
+            .catch(function (err) {
+            spinner_1.default.fail(lang_1.default.moneyExchangeGetError);
+            console.log(err);
+        });
         return [2 /*return*/];
     });
 }); };
@@ -186,7 +192,7 @@ var inputByMoney = function (dbCode) { return __awaiter(void 0, void 0, void 0, 
     return __generator(this, function (_a) {
         codeArr = dbCode.split('-');
         if (codeArr.length !== 2) {
-            console.error(lang_1.default.optionError2);
+            (0, utils_1.consoleErr)(lang_1.default.optionError2);
             return [2 /*return*/];
         }
         if (!data_1.supportCurrencys.includes(codeArr[0]) || !data_1.supportCurrencys.includes(codeArr[1])) {

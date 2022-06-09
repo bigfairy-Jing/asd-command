@@ -105,7 +105,7 @@ var selectLang = function () { return __awaiter(void 0, void 0, void 0, function
     });
 }); };
 var showLangList = function () {
-    (0, utils_1.consoleSuccess)(lang_1.langList.map(function (x) { return x.name; }).join("\n"));
+    (0, utils_1.consoleSuccess)("\n".concat(lang_1.langList.map(function (x) { return x.name; }).join("\n")));
 };
 exports.default = (function (cmd) {
     var keys = Object.keys(cmd);
@@ -115,7 +115,7 @@ exports.default = (function (cmd) {
         return;
     }
     if (length !== 1) {
-        console.error(lang_1.default.optionError);
+        (0, utils_1.consoleErr)(lang_1.default.optionError);
         return;
     }
     var type = keys[0];

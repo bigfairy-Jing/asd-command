@@ -7,11 +7,12 @@ import regs from '../../lib/reg';
 import { CMD } from '../../lib/commonType';
 import { consoleErr } from '../../lib/utils';
 import { copyToClipboard } from '../copyUltimate/config';
+import GotFetch from '../../lib/fetch';
 
 const imgToBase64 = (imgLink: string) => {
   const stat = fs.lstatSync(imgLink);
   if (!stat.isFile() && regs.img.val.test(imgLink)) {
-    consoleErr(lang.showInputImgFile    );
+    consoleErr(lang.showInputImgFile);
     return;
   }
 
@@ -35,12 +36,28 @@ const imgToBase64 = (imgLink: string) => {
 //   fs.writeFileSync(`base${Date.now()}${imgName}`, baseStr, 'base64');
 // };
 
+const urlToBase64 = async (url: string) => {
+  const { code, res } = (await GotFetch.get(url.replace(/\\/g, ''))) as {
+    code: number;
+    res: {
+      rawBody: Buffer;
+    };
+  };
+  if (code !== 0) {
+    console.error(lang.imgUrlError);
+    return;
+  }
+  // 待优化>>>>
+  const base64String = `data:image/png;base64,${Buffer.from(res.rawBody).toString('base64')}`;
+  copyToClipboard(base64String, lang.imgTranslateBase64);
+};
+
 export default (val: string, cmd: CMD) => {
   const keys = Object.keys(cmd);
   const { length } = keys;
 
   if (length !== 1) {
-    console.error(lang.optionError);
+    consoleErr(lang.optionError);
     return;
   }
 
@@ -48,5 +65,7 @@ export default (val: string, cmd: CMD) => {
   // 图片转base64
   if (type === 'imgtobase64') {
     imgToBase64(val);
+  } else {
+    urlToBase64(val);
   }
 };

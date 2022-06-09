@@ -29,9 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.printWeather = exports.getWeatherAPI = void 0;
 var chalk_1 = __importDefault(require("chalk"));
 var lang_1 = __importStar(require("../../lang"));
+var weatherKey = '4e40543244f03b9a58ca5c4f0f73d455';
 var getWeatherAPI = function (type, city) {
-    var WEATHERKEY = process.env.WEATHERKEY;
-    return "https://restapi.amap.com/v3/weather/weatherInfo?key=".concat('4e40543244f03b9a58ca5c4f0f73d455', "&extensions=").concat(type, "&output=JSON&city=").concat(city);
+    return "https://restapi.amap.com/v3/weather/weatherInfo?key=".concat(weatherKey, "&extensions=").concat(type, "&output=JSON&city=").concat(city);
 };
 exports.getWeatherAPI = getWeatherAPI;
 var DAY;
