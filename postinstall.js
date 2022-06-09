@@ -16,7 +16,6 @@ const writePackageLanguage = (language) => {
   const str = JSON.stringify(package)
   try {
     fs.writeFileSync('./dist/package.json', str)
-    
     console.log(
       chalk.white.bgGreen.bold(getSuccesText(language))
     );
