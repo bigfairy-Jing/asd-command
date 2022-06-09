@@ -67,12 +67,14 @@ var package_json_1 = __importDefault(require("../../package.json"));
 var fs_1 = __importDefault(require("fs"));
 var lang_1 = __importStar(require("../../lang"));
 var utils_1 = require("../../lib/utils");
+var path_1 = __importDefault(require("path"));
 var _packgeJson = JSON.parse(JSON.stringify(package_json_1.default));
 var writePackageLanguage = function (language) {
     _packgeJson.language = language;
     var str = JSON.stringify(_packgeJson);
     try {
-        fs_1.default.writeFileSync('./dist/package.json', str);
+        var packagePath = path_1.default.resolve(__dirname, '../../package.json');
+        fs_1.default.writeFileSync(packagePath, str);
         (0, utils_1.consoleSuccess)(lang_1.langData[language].languageChangeSuccess);
         (0, utils_1.consoleSuccess)(lang_1.langData[language].showSelectLanguage);
     }

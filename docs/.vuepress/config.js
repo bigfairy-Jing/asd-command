@@ -1,9 +1,8 @@
 module.exports = {
   base: '/asd-command/',
   dest: 'docs/dist',
-  // descrition: '一个致力于沉浸式开发的命令行工具',
+  descrition: '一个致力于沉浸式开发的命令行工具',
   // head: {},
-  // themeConfig: {},
   themeConfig: {
     logo: '/logo.png',
     repo: 'bigfairy-Jing/asd-command',
@@ -21,14 +20,28 @@ module.exports = {
           collapsable: false,
           children: [
             'start',
-            'install',
           ]
         },
         {
-          title: '使用命令',
+          title: '命令',
           collapsable: false,
           children: [
             'weather',
+            'translate',
+            'moneyTranslate',
+            'imgCompress',
+            'copyUltimate',
+            'imgTranslate',
+            'imgLinkSave',
+            'imgInfo',
+            'imgClip',
+            'createQrcode',
+            'search',
+            'openBrowser',
+            'colorTranslate',
+            'randomSelect',
+            'createSome',
+            'languageChange'
           ]
         }
       ]

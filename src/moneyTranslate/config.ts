@@ -158,8 +158,10 @@ export const inputByMoney = async (dbCode: string) => {
     ])
     .then(async answers => {
       const { inputMoney } = answers;
+      spinner.log(`🚗${lang.moneyExchangeGetting}`);
       const { success, rate, update } = await requestMoneyExchange(codeArr[0], codeArr[1]);
       if (success) {
+        spinner.success(lang.moneyExchangeGetSuccess);
         console.log(
           langFormatData.showMoneyInfo(
             rate,
@@ -170,5 +172,8 @@ export const inputByMoney = async (dbCode: string) => {
         );
       }
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+      spinner.fail(lang.moneyExchangeGetError);
+      console.log(err);
+    });
 };

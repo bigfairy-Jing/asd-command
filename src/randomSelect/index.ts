@@ -6,7 +6,7 @@ export default (text: string) => {
   const reg = /\[(.+?)\]/g;
   const matchs = text.match(reg);
   // 存在中括号的情况 例如  18 [吃饭 不吃饭]
-  if (matchs.length) {
+  if (matchs && matchs.length) {
     formatStr = matchs.toString().slice(1, -1);
     randomNum = Number.isInteger(+text.split(/\s+/)[0]) ? +text.split(/\s+/)[0] : 1;
   }

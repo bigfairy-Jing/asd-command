@@ -4,6 +4,7 @@ import fs from 'fs';
 import { CMD } from '../../lib/commonType';
 import lang, { langList, langData, LangType } from '../../lang';
 import { consoleErr, consoleSuccess } from '../../lib/utils';
+import path from 'path';
 
 const _packgeJson = JSON.parse(JSON.stringify(packageJson));
 
@@ -19,7 +20,8 @@ const writePackageLanguage = (language: LangType) => {
   _packgeJson.language = language;
   const str = JSON.stringify(_packgeJson);
   try {
-    fs.writeFileSync('./dist/package.json', str);
+    const packagePath: string = path.resolve(__dirname, '../../package.json');
+    fs.writeFileSync(packagePath, str);
     consoleSuccess(langData[language].languageChangeSuccess);
     consoleSuccess(langData[language].showSelectLanguage);
   } catch (error) {

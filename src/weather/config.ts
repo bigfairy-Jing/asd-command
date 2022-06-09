@@ -47,7 +47,7 @@ export const printWeather = (type: string, res: WeathreRes): void => {
     const now = res.lives[0];
     const { city, weather, winddirection, windpower, temperature, reporttime, humidity } = now;
     console.log(
-      chalk.blue(
+      chalk.green(
         langFormatData.showNowWeather(
           city,
           weather,
@@ -100,5 +100,5 @@ ${detail}
     })
     .reduce((str, now) => str + now);
 
-  console.log(chalk.blue(`${langFormatData.showFeatureWeatherDesc(city, reporttime)}${showstr}`));
+  console.log(chalk.green(`${langFormatData.showFeatureWeatherDesc(city, reporttime)}${showstr}`));
 };

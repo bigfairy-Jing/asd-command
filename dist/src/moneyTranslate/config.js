@@ -213,17 +213,22 @@ var inputByMoney = function (dbCode) { return __awaiter(void 0, void 0, void 0, 
                 switch (_b.label) {
                     case 0:
                         inputMoney = answers.inputMoney;
+                        spinner_1.default.log("\uD83D\uDE97".concat(lang_1.default.moneyExchangeGetting));
                         return [4 /*yield*/, (0, exports.requestMoneyExchange)(codeArr[0], codeArr[1])];
                     case 1:
                         _a = _b.sent(), success = _a.success, rate = _a.rate, update = _a.update;
                         if (success) {
+                            spinner_1.default.success(lang_1.default.moneyExchangeGetSuccess);
                             console.log(lang_1.langFormatData.showMoneyInfo(rate, update, inputMoney, (0, utils_1.mul)(inputMoney, rate)));
                         }
                         return [2 /*return*/];
                 }
             });
         }); })
-            .catch(function (err) { return console.error(err); });
+            .catch(function (err) {
+            spinner_1.default.fail(lang_1.default.moneyExchangeGetError);
+            console.log(err);
+        });
         return [2 /*return*/];
     });
 }); };

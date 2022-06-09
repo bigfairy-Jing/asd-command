@@ -2,6 +2,7 @@ const fs = require('fs');
 const chalk = require('chalk')
 const inquirer = require('inquirer');
 const package = require('./package.json');
+const path = require('path');
 
 const getSuccesText = (lan) => {
   const {name, version} = package;
@@ -15,7 +16,8 @@ const writePackageLanguage = (language) => {
   package.language = language
   const str = JSON.stringify(package)
   try {
-    fs.writeFileSync('./dist/package.json', str)
+    const packagePath = path.resolve(__dirname, './dist/package.json')
+    fs.writeFileSync(packagePath, str)
     console.log(
       chalk.white.bgGreen.bold(getSuccesText(language))
     );

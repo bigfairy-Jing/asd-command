@@ -47,7 +47,7 @@ var printWeather = function (type, res) {
     if (type === 'base') {
         var now = res.lives[0];
         var city_1 = now.city, weather = now.weather, winddirection = now.winddirection, windpower = now.windpower, temperature = now.temperature, reporttime_1 = now.reporttime, humidity = now.humidity;
-        console.log(chalk_1.default.blue(lang_1.langFormatData.showNowWeather(city_1, weather, winddirection, windpower, temperature, humidity, reporttime_1)));
+        console.log(chalk_1.default.green(lang_1.langFormatData.showNowWeather(city_1, weather, winddirection, windpower, temperature, humidity, reporttime_1)));
         return;
     }
     // 今日和未来天气;
@@ -67,7 +67,7 @@ var printWeather = function (type, res) {
         return "\n".concat(chalk_1.default.red(name), "\n").concat(detail, "\n    ");
     })
         .reduce(function (str, now) { return str + now; });
-    console.log(chalk_1.default.blue("".concat(lang_1.langFormatData.showFeatureWeatherDesc(city, reporttime)).concat(showstr)));
+    console.log(chalk_1.default.green("".concat(lang_1.langFormatData.showFeatureWeatherDesc(city, reporttime)).concat(showstr)));
 };
 exports.printWeather = printWeather;
 //# sourceMappingURL=config.js.map

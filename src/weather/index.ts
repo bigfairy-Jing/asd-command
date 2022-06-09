@@ -8,6 +8,7 @@ import weatherCodeList, { WItem } from './data';
 import { consoleErr, consoleSuccess } from '../../lib/utils';
 import { CMD } from '../../lib/commonType';
 import packageJson from '../../package.json';
+import path from 'path';
 
 const _packgeJson = JSON.parse(JSON.stringify(packageJson));
 
@@ -18,7 +19,8 @@ const writeCode = (item: WItem) => {
   _packgeJson.city = code;
   const str = JSON.stringify(_packgeJson);
   try {
-    fs.writeFileSync('./dist/package.json', str);
+    const packagePath = path.resolve(__dirname, '../../package.json');
+    fs.writeFileSync(packagePath, str);
     consoleSuccess(langFormatData.getEditWeatherCodeSuccess(address));
   } catch (error) {
     console.log(error);

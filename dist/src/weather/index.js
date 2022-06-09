@@ -71,6 +71,7 @@ var config_1 = require("./config");
 var data_1 = __importDefault(require("./data"));
 var utils_1 = require("../../lib/utils");
 var package_json_1 = __importDefault(require("../../package.json"));
+var path_1 = __importDefault(require("path"));
 var _packgeJson = JSON.parse(JSON.stringify(package_json_1.default));
 var tempCityCode = _packgeJson.city || '110100';
 var writeCode = function (item) {
@@ -78,7 +79,8 @@ var writeCode = function (item) {
     _packgeJson.city = code;
     var str = JSON.stringify(_packgeJson);
     try {
-        fs_1.default.writeFileSync('./dist/package.json', str);
+        var packagePath = path_1.default.resolve(__dirname, '../../package.json');
+        fs_1.default.writeFileSync(packagePath, str);
         (0, utils_1.consoleSuccess)(lang_1.langFormatData.getEditWeatherCodeSuccess(address));
     }
     catch (error) {

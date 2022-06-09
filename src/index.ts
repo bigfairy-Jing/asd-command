@@ -106,7 +106,7 @@ program
   .option('-tt, --timestamp', 'num of timestamp')
   .option('-rl, --randomletter', 'random letter')
   .option('-rp, --randomphone', 'random phone number')
-  .option('-rh, --randomhue', 'random colour')
+  .option('-rh, --randomhue', 'random color')
   .description(lang.createAny)
   .action(async (val: string, cmd: CMD) => {
     verifyArgs('cs');
