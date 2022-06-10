@@ -222,7 +222,7 @@ program
     .option('-tt, --timestamp', 'num of timestamp')
     .option('-rl, --randomletter', 'random letter')
     .option('-rp, --randomphone', 'random phone number')
-    .option('-rh, --randomhue', 'random colour')
+    .option('-rh, --randomhue', 'random color')
     .description(index_1.default.createAny)
     .action(function (val, cmd) { return __awaiter(void 0, void 0, void 0, function () {
     var creaetSome;
