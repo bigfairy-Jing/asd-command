@@ -8,6 +8,7 @@ module.exports = {
     repo: 'bigfairy-Jing/asd-command',
     docsDir: 'docs',
     editLinks: true,
+    docsBranch: 'main',
     editLinkText: '去github帮助我们改善！',
     lastUpdated: '上次更新',
     nav: [
