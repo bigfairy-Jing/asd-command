@@ -66,9 +66,9 @@ var fs_1 = __importDefault(require("fs"));
 var tinify_1 = __importDefault(require("tinify"));
 var path_1 = __importDefault(require("path"));
 // import images from 'images';
-var imagemin_1 = __importDefault(require("imagemin"));
-var imagemin_mozjpeg_1 = __importDefault(require("imagemin-mozjpeg"));
-var imagemin_pngquant_1 = __importDefault(require("imagemin-pngquant"));
+// import imagemin from 'imagemin';
+// import imageminMozjepg from 'imagemin-mozjpeg';
+// import imageminPngquant from 'imagemin-pngquant';
 var utils_1 = require("../../lib/utils");
 var reg_1 = __importDefault(require("../../lib/reg"));
 var data_1 = __importDefault(require("./data"));
@@ -80,32 +80,29 @@ var spinner_1 = __importDefault(require("../../lib/spinner"));
 // “imagemin”: “^7.0.1”,
 // “imagemin-mozjpeg”: “^8.0.0”,
 // “imagemin-pngquant”: “^8.0.0”,
-var compressImgmin = function (inPath, toPath) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/, new Promise(function (resolve, reject) {
-                (0, imagemin_1.default)([inPath], {
-                    plugins: [
-                        (0, imagemin_mozjpeg_1.default)({ quality: 70 }),
-                        (0, imagemin_pngquant_1.default)({
-                            quality: [0.6, 0.8],
-                        }),
-                    ],
-                })
-                    .then(function (res) {
-                    fs_1.default.writeFile(toPath, res[0].data, 'binary', function (err) {
-                        if (err)
-                            reject();
-                        else
-                            resolve();
-                    });
-                })
-                    .catch(function (err) {
-                    console.log(err);
-                    reject();
-                });
-            })];
-    });
-}); };
+// 暂时弃用该API,之后找到更多的方式优化
+// const compressImgmin = async (inPath: string, toPath: string) => {
+//   return new Promise<void>((resolve, reject) => {
+//     imagemin([inPath], {
+//       plugins: [
+//         imageminMozjepg({ quality: 70 }),
+//         imageminPngquant({
+//           quality: [0.6, 0.8],
+//         }),
+//       ],
+//     })
+//       .then(res => {
+//         fs.writeFile(toPath, res[0].data, 'binary', err => {
+//           if (err) reject();
+//           else resolve();
+//         });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         reject();
+//       });
+//   });
+// };
 var compressByTinify = function (inPath, toPath) { return __awaiter(void 0, void 0, void 0, function () {
     var source;
     return __generator(this, function (_a) {
@@ -168,10 +165,10 @@ exports.default = (function (inPath, toPath, cmd) { return __awaiter(void 0, voi
             case 0:
                 pathType = (0, utils_1.isPathType)(inPath);
                 keys = Object.keys(cmd);
-                type = ['nodeimages', 'tinypng'].includes(keys[0]) ? keys[0] : 'tinypng';
+                type = ['tinypng'].includes(keys[0]) ? keys[0] : 'tinypng';
                 compressFn = {
                     tinypng: compressByTinify,
-                    nodeimages: compressImgmin,
+                    // nodeimages: compressImgmin,
                 }[type];
                 if (!(pathType === utils_1.PathTypeEnum.FILE)) return [3 /*break*/, 4];
                 if (!reg_1.default.img.val.test(inPath)) {

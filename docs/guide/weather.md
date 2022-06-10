@@ -19,7 +19,7 @@ $ asd weather [options] [code]
 |  -b  |    --base    |      查询实时天气  |
 |  -a  |    --all    |   默认值:查询今天，明天，后天，大后天 天气  |
 |  -fc  |    --findcode    |      查询全国地区code码  |
-|  -s  |    --setsystem    |     通过code码设置系统地区  |
+|  -ss  |    --setsystem    |     通过code码设置系统地区  |
 
 __code 为高德天气地区 [城市编码](https://lbs.amap.com/api/webservice/download)__
 

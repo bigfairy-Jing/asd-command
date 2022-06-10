@@ -2,10 +2,10 @@ import fs from 'fs';
 import tinify from 'tinify';
 import path from 'path';
 // import images from 'images';
-import imagemin from 'imagemin';
-import imageminMozjepg from 'imagemin-mozjpeg';
-import imageminPngquant from 'imagemin-pngquant';
-import { consoleErr, consoleSuccess, isPathType, PathTypeEnum } from '../../lib/utils';
+// import imagemin from 'imagemin';
+// import imageminMozjepg from 'imagemin-mozjpeg';
+// import imageminPngquant from 'imagemin-pngquant';
+import { consoleErr, isPathType, PathTypeEnum } from '../../lib/utils';
 import Regs from '../../lib/reg';
 import TINIFYKEY from './data';
 import { CMD } from '../../lib/commonType';
@@ -25,28 +25,29 @@ type TempFileItem = {
 // “imagemin-mozjpeg”: “^8.0.0”,
 // “imagemin-pngquant”: “^8.0.0”,
 
-const compressImgmin = async (inPath: string, toPath: string) => {
-  return new Promise<void>((resolve, reject) => {
-    imagemin([inPath], {
-      plugins: [
-        imageminMozjepg({ quality: 70 }),
-        imageminPngquant({
-          quality: [0.6, 0.8],
-        }),
-      ],
-    })
-      .then(res => {
-        fs.writeFile(toPath, res[0].data, 'binary', err => {
-          if (err) reject();
-          else resolve();
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        reject();
-      });
-  });
-};
+// 暂时弃用该API,之后找到更多的方式优化
+// const compressImgmin = async (inPath: string, toPath: string) => {
+//   return new Promise<void>((resolve, reject) => {
+//     imagemin([inPath], {
+//       plugins: [
+//         imageminMozjepg({ quality: 70 }),
+//         imageminPngquant({
+//           quality: [0.6, 0.8],
+//         }),
+//       ],
+//     })
+//       .then(res => {
+//         fs.writeFile(toPath, res[0].data, 'binary', err => {
+//           if (err) reject();
+//           else resolve();
+//         });
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         reject();
+//       });
+//   });
+// };
 
 const compressByTinify = async (inPath: string, toPath: string) => {
   tinify.key = TINIFYKEY;
@@ -97,10 +98,13 @@ const formatDir = (inPath: string, toPath: string, tempFiles: TempFileItem[] = [
 export default async (inPath: string, toPath: string, cmd: CMD) => {
   const pathType = isPathType(inPath);
   const keys = Object.keys(cmd);
-  const type = ['nodeimages', 'tinypng'].includes(keys[0]) ? keys[0] : 'tinypng';
+  // 此处因为 “imagemin” 包过大，所以这里改成了暂时只支持 tinypng 压缩方式
+  // 后续会有其他做法
+  // const type = ['nodeimages', 'tinypng'].includes(keys[0]) ? keys[0] : 'tinypng';
+  const type = ['tinypng'].includes(keys[0]) ? keys[0] : 'tinypng';
   const compressFn = {
     tinypng: compressByTinify,
-    nodeimages: compressImgmin,
+    // nodeimages: compressImgmin,
   }[type];
   if (pathType === PathTypeEnum.FILE) {
     if (!Regs.img.val.test(inPath)) {

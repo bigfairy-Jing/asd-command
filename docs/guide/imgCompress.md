@@ -11,8 +11,9 @@ $ asd  imgcp [options] <inPath> <outPath>
 | name |       alias     |          desc       |
 | :--: | :-------------: | :---------------------: |
 |  -tin  |    --tinypng    |      使用tinypng压缩  |
-|  -images  |    --nodeimages    |   使用nodeimages |
+|  (已弃用)-images  |    --nodeimages    |   使用imagemin方式压缩 |
 
+* 因 imagemin 以及imagemin以及依赖包过大，所以暂时弃用，后续找到更好的方案会增加
 ### inPath
 
 > 图片路径 或者文件夹路径
@@ -20,4 +21,8 @@ $ asd  imgcp [options] <inPath> <outPath>
 ### outPath
 
 > 图片输出路径，__必须存在该路径__
+
+### 声明
+* 关于
+
 
