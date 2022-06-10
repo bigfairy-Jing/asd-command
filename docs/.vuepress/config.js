@@ -6,6 +6,7 @@ module.exports = {
   themeConfig: {
     logo: '/logo.png',
     repo: 'bigfairy-Jing/asd-command',
+    repoLabel: '给作者的 Github 点个 star 吧！',
     docsDir: 'docs',
     editLinks: true,
     docsBranch: 'main',
