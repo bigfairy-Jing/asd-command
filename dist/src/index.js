@@ -395,7 +395,27 @@ program
         }
     });
 }); });
-// $15 选择中英文
+// $15 从二到十之间随机选择两个数字，生成范围之间不存在该数字倍数的数字
+program
+    .command('rhop <word>')
+    .description(index_1.default.randomHopSelectionDes)
+    .option('-h, --hundred', 'random 1-100')
+    .option('-t, --thousand', 'random 1-1000')
+    .action(function (word, cmd) { return __awaiter(void 0, void 0, void 0, function () {
+    var randomHopSelection;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                (0, utils_1.verifyArgs)('randomHopSelection', 2);
+                return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require('./randomHopSelection')); })];
+            case 1:
+                randomHopSelection = _a.sent();
+                randomHopSelection.default(word, cmd);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// $16 选择中英文
 program
     .command('lang')
     .description(index_1.default.languageChange)

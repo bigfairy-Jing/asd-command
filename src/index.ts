@@ -207,7 +207,19 @@ program
     copyUltimate.default(word, opt, cmd);
   });
 
-// $15 选择中英文
+// $15 从二到十之间随机选择两个数字，生成范围之间不存在该数字倍数的数字
+program
+  .command('rhop <word>')
+  .description(lang.randomHopSelectionDes)
+  .option('-h, --hundred', 'random 1-100')
+  .option('-t, --thousand', 'random 1-1000')
+  .action(async (word: string, cmd: CMD) => {
+    verifyArgs('randomHopSelection', 2);
+    const randomHopSelection = await import('./randomHopSelection');
+    randomHopSelection.default(word, cmd);
+  });
+
+// $16 选择中英文
 program
   .command('lang')
   .description(lang.languageChange)

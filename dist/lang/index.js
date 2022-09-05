@@ -83,6 +83,7 @@ exports.langData = {
         moneyExchangeGetting: '汇率查询中...',
         moneyExchangeGetSuccess: '汇率查询成功...',
         moneyExchangeGetError: '汇率查询失败...',
+        randomHopSelectionDes: '从二到十之间随机选择两个数字，生成范围之间不存在该数字倍数的数字',
     },
     en: {
         creating: 'In production',
@@ -151,6 +152,7 @@ exports.langData = {
         moneyExchangeGetting: 'Exchange rate inquiry',
         moneyExchangeGetSuccess: 'Exchange rate query successful',
         moneyExchangeGetError: 'Exchange rate query failed',
+        randomHopSelectionDes: 'Select two numbers at random from two to ten to generate numbers whose multiples do not exist between the ranges',
     },
 };
 exports.langFormat = {
